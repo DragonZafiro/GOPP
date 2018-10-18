@@ -50,6 +50,7 @@ Route::middleware(['session','empresa'])->group(function () {
     Route::get('ofertas_promociones', 'PromosController@AllPromos')->name('ofertas.todos');
     Route::get('boletin_todos', 'BoletinController@AllBoletin')->name('boletines.todos');
 
+    Route::get('/empresa/{empresa}','UserController@mostrarEmpresa')->name('usuario.empresa');
     Route::get('/notificaciones/empresa','BusinessController@notificaciones')->name('empresa.notificaciones');
     Route::get('/LanzarBoletin','BusinessController@LanzarBoletin')->name('empresa.LanzarBoletin');
     Route::get('/boletines','BusinessController@boletines')->name('empresa.boletines');
