@@ -1,8 +1,10 @@
 @php
-$user = auth()->user();
-$user_profile = $user->getUserImage();
-$user_cover = $user->getCoverImage();
-$business = $user->getBusinessSelected();
+if(!auth()->guest()){
+    $user = auth()->user();
+    $user_profile = $user->getUserImage();
+    $user_cover = $user->getCoverImage();
+    $business = $user->getBusinessSelected();
+}
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -27,10 +29,15 @@ $business = $user->getBusinessSelected();
 		<div id="wrapper">
 			<div id="sidebar-wrapper" class="scrollable">
                 <div class="container-fluid my-0 mx-0 py-0 px-0 border-0">
-                    <div class="navbar-header headerBar px-5 py-2 mx-0 row bg-{{$user->loggedAs}}">
+                    @if(!auth()->guest())
+                        <div class="navbar-header headerBar px-5 py-2 mx-0 row bg-{{$user->loggedAs}}">
+                    @else
+                        <div class="navbar-header headerBar px-5 py-2 mx-0 row bg-usuario">
+                    @endif
                     </div>
                     <div class="container-fluid my-0 mx-0 py-0 px-0 border-0">
                         <div class="userCard">
+                        @if(!auth()->guest())
                             @if($user->loggedAs != 'empresa')
                             <div class="userPhotoAligner">
                                 <center>
@@ -53,6 +60,16 @@ $business = $user->getBusinessSelected();
                                 </h4>
                                 <p>{{$user->nick}}</p>
                             </div>
+                        @else
+                        <div class="userPhotoAligner">
+                            <center>
+                                <div class="roundElementContainer squareSizeL">
+                                    <img src="{{asset('dist/img/user/profile/default.jpg')}}">
+                                </div>
+                            </center>
+                        </div>
+                        <img class="coverPicture" src="{{asset('dist/img/user/cover/default.jpg')}}">
+                        @endif
                         </div>
                     </div>
                 </div>
@@ -81,6 +98,7 @@ $business = $user->getBusinessSelected();
 								</div>
                             </div>
                             <div class="session_user row align-items-center d-flex">
+                            @if(!auth()->guest())
                                 <div class="px-1">
                                     <div class='roundElementContainer squareSizeXXS'>
                                         <img src="{{$user_profile}}">
@@ -100,6 +118,11 @@ $business = $user->getBusinessSelected();
                                         <span class="fas fa-power-off txtWhite"/>
                                     </a>
                                 </div>
+                            @else
+                                <div class="px-1">
+                                    <span class="text-white p mr-3 pt-3">Bienvenido <a id="a-login" class="text-green" href="login">Iniciar Sesión</a>
+                                </div>
+                            @endif
                             </div>
                         </div>
 					</header>

@@ -1,6 +1,3 @@
-@if($producto==null)
-    <?=redirect()->route('home')?>
-@else
 <!-- Plantilla -->
 @extends('general')
 <!-- Titulo -->
@@ -86,4 +83,3 @@
 </div>
 <!--container.//-->
 @endsection
-@endif

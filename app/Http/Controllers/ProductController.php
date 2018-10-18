@@ -15,6 +15,8 @@ class ProductController extends Controller
     }
     public function show($id)
     {
+        if(Products::find($id) == null)
+            return redirect()->route('home');
         return view('vistas.producto')
             ->with('producto', Products::find($id));
     }

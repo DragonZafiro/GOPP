@@ -1,7 +1,4 @@
-@if($business==null)
-<?=redirect()->route('home')?>
-@else
-    <!-- Plantilla -->
+<!-- Plantilla -->
 @extends('general')
     <!-- Titulo -->
 @section('titulo', 'Detalles de '.$business->nombre.'')
@@ -116,4 +113,3 @@
     </div>
 </div>
 @endsection
-@endif

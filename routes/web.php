@@ -1,6 +1,6 @@
 <?php
 // Principal ------------------------------------------------
-Route::get('/', 'WebController@seleccionarModo')->name('home');
+Route::get('/', 'GuestController@index')->name('inicio');
 Route::get('/home', 'WebController@seleccionarModo')->name('home');
 Route::get('/praemie', 'WebController@praemie')->name('praemie');
 Route::get('/about', 'WebController@about')->name('about');
@@ -22,7 +22,7 @@ Route::middleware(['session','usuario'])->group(function () {
     Route::get('/puntos','UserController@puntos')->name('usuario.puntos');
     Route::get('/empresas/{s?}','UserController@empresas')->name('usuario.empresas')
         ->where('s', '[a-z]+');
-    Route::get('/empresa/{empresa}','UserController@mostrarEmpresa')->name('usuario.empresa');
+    Route::get('/negocio/{empresa}','UserController@mostrarEmpresa')->name('usuario.empresa');
     Route::get('/mapa','UserController@mapa')->name('usuario.mapa');
     Route::get('/producto/{producto}','ProductController@show')->name('usuario.productos');
     Route::get('/notificaciones/usuario','UserController@notificaciones')->name('usuario.notificaciones');
@@ -49,8 +49,7 @@ Route::middleware(['session','empresa'])->group(function () {
     Route::get('servicios_productos', 'ProductController@AllProduct')->name('productos.todos');
     Route::get('ofertas_promociones', 'PromosController@AllPromos')->name('ofertas.todos');
     Route::get('boletin_todos', 'BoletinController@AllBoletin')->name('boletines.todos');
-
-    Route::get('/empresa/{empresa}','UserController@mostrarEmpresa')->name('usuario.empresa');
+    Route::get('/empresa/{empresa}','UserController@mostrarEmpresa')->name('empresa.empresa');
     Route::get('/notificaciones/empresa','BusinessController@notificaciones')->name('empresa.notificaciones');
     Route::get('/LanzarBoletin','BusinessController@LanzarBoletin')->name('empresa.LanzarBoletin');
     Route::get('/boletines','BusinessController@boletines')->name('empresa.boletines');
