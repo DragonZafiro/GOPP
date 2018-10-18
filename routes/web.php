@@ -4,10 +4,11 @@ Route::get('/', 'WebController@seleccionarModo')->name('home');
 Route::get('/home', 'WebController@seleccionarModo')->name('home');
 Route::get('/praemie', 'WebController@praemie')->name('praemie');
 Route::get('/about', 'WebController@about')->name('about');
-// Route::get('/test', function(){
-//     return view('mapa');
-// });
 // Login prueba 2
+Route::get('/test', function(){
+    return view('mapa');
+});
+// Logeo
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
