@@ -1,0 +1,113 @@
+.controls
+{
+    margin-top: 20px;
+}
+[data-slide="prev"]
+{
+    margin-right: 10px;
+}
+  .card-product:after {
+    content: "";
+    display: table;
+    clear: both;
+    visibility: hidden;
+}
+  .card-product .price-new, .card-product .price {
+    margin-right: 5px; }
+  .card-product .price-old {
+    color: #999; }
+  .card-product .img-wrap {
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+
+    .card-product .img-wrap img {
+      max-height: 150px;
+      max-width: 100%;
+      object-fit: cover; }
+
+    .card-product .info-wrap {
+    display: block;
+    overflow: hidden;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    height: 100px;
+}
+  .card-product .action-wrap {
+    padding-top: 4px;
+    margin-top: 4px; }
+  .card-product .bottom-wrap {
+    padding: 15px;
+    border-top: 1px solid #eee; }
+  .card-product .title {
+    margin-top: 0; }
+
+@media (min-width: 768px) {
+
+    /* show 3 items */
+    .card-oferta-container .carousel-inner .active,
+    .card-oferta-container .carousel-inner .active + .carousel-item,
+    .card-oferta-container .carousel-inner .active + .carousel-item + .carousel-item,
+    .card-oferta-container .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item  {
+        display: block !important;
+    }
+
+    .card-oferta-container .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+    .card-oferta-container .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+    .card-oferta-container .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item,
+    .card-oferta-container .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
+        transition: none !important;
+    }
+
+    .card-oferta-container .carousel-inner .carousel-item-next,
+    .card-oferta-container .carousel-inner .carousel-item-prev {
+      position: relative !important;
+      transform: translate3d(0, 0, 0) !important;
+    }
+
+    .card-oferta-container .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: absolute !important;
+        top: 0 !important;
+        right: -25% !important;
+        z-index: -1 !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* left or forward direction */
+    .card-oferta-container .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+    .card-oferta-container .carousel-item-next.carousel-item-left + .carousel-item,
+    .card-oferta-container .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+    .card-oferta-container .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item,
+    .card-oferta-container .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative !important;
+        transform: translate3d(-100%, 0, 0) !important;
+        visibility: visible !important;
+    }
+
+    /* farthest right hidden item must be abso position for animations */
+    .card-oferta-container .carousel-inner .carousel-item-prev.carousel-item-right {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        z-index: -1 !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* right or prev direction */
+    .card-oferta-container .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+    .card-oferta-container .carousel-item-prev.carousel-item-right + .carousel-item,
+    .card-oferta-container .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+    .card-oferta-container .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item,
+    .card-oferta-container .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative !important;
+        transform: translate3d(100%, 0, 0) !important;
+        visibility: visible !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+
+}
