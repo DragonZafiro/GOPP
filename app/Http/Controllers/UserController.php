@@ -26,9 +26,11 @@ class UserController extends Controller
 		$s = $request->query('s');
 		// Query and paginate result
 		$business = Business::where('nombre', 'like', "%$s%")
-            ->orWhere('descripcion', 'like', "%$s%");
+            ->orWhere('descripcion', 'like', "%$s%")
+            ->orWhere('category_id', 'like', "%$s%");
         $business = Business::where('nombre', 'like', "%$s%")
-            ->orWhere('descripcion', 'like', "%$s%");
+            ->orWhere('descripcion', 'like', "%$s%")
+            ->orWhere('category_id', 'like', "%$s%");
         return view('usuario.empresas', ['business' => $business, 's' => $s ]);
     }
     public function mapa(){

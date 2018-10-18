@@ -23,7 +23,7 @@ $categories = App\CategoryModel::all();
     <div class="navbar-collapse collapse" id="navbar5">
         <form class="mx-2 my-auto d-inline w-100" action="{{route('usuario.empresas')}}" method="get">
             <div class="input-group">
-                <input type="text" name='s' value="{{ Request::query('s') }}" class="form-control border border-right-0" placeholder="Buscar (Nombre o descripción)...">
+                <input type="text" name='s' value="{{ Request::query('s') }}" class="form-control border border-right-0" placeholder="Buscar (Nombre o descripción o categoria)">
                 <span class="input-group-append">
                 <button class="btn btn-outline-secondary border border-left-0" type="submit">
                     <i class="fa fa-search"></i>
