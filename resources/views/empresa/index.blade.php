@@ -26,7 +26,7 @@ $category = App\CategoryModel::find($neg->category_id);
         <div class="row col-lg-12">
             <div class="col-md-6">
                 <img class="float-left rounded-circle mr-4" style="height:60px" src="" />
-                <h3>Estos son todos los negocios dentro de la categoría Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<span class="text-empresa">{{$category->nombre}}</span></h3>
+                <h3>Estos son todos los negocios dentro de la categoría<span class="text-empresa">{{$category->nombre}}</span></h3>
             </div>
         </div>
         <div id="carousel-business" class="carousel slide" data-ride="carousel" data-interval="9000">
