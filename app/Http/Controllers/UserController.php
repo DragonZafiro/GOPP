@@ -7,8 +7,57 @@ use App\Business;
 use Auth;
 class UserController extends Controller
 {
-    public function __construct(){
-        //return $this->middleware('session');
+    public function store(Request $request)
+    {
+        $validator = $this->validate($request, [
+            'foto' => 'required|file|mimes:jpeg,gif,png',
+            'nombre' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'nick' => 'required|max:255',
+            'email' => 'required|email',
+            'confirmPassword' => 'required|max:255',
+            'fecha_nac' => 'required|date',
+            'direccion_calle' => 'required|max:255',
+            'direccion_num' => 'required|max:255',
+            'direccion_estado' => 'required|max:255',
+            'direccion_cp' => 'required|max:255',
+            'pais' => 'required|max:255'
+        ]);
+        $data = [
+            'name' => $request['nombre'],
+            'last_name' => $request['last_name'],
+            'nick' => $request['nick'],
+            'password' => bcrypt($request['confirmPassword']),
+            'email' => $request['email'],
+            'fecha_nac' => $request['fecha_nac'],
+            'frase' => 'mi frase',
+            'direccion_num' => $request['direccion_num'],
+            'direccion_calle' => $request['direccion_calle'],
+            'direccion_delegacion' => 'La Paz',
+            'direccion_cp' => $request['direccion_cp'],
+            'direccion_estado' => $request['direccion_estado'],
+            'pais' => $request['pais'],
+            'puntos' => '0'
+        ];
+
+        if ($user = User::create($data)) {
+            if ($request->file('foto')) {
+                $file = $request->file('foto');
+                $file_name = $user->id . '_' . $user->nick . '.' . $file->extension();
+                $file_path = 'dist/img/user/profile/';
+                $file->move($file_path, $file_name);
+                $credentials = $request->only('email', 'password');
+                if (Auth::attempt($credentials)) {
+                    return redirect()->intended('home');
+                }
+            }
+        }
+        $errors = $validator->errors();
+        return response()->json([
+            'success' => false,
+            'message' => json_decode($errors)
+        ], 422);
+
     }
     public function promos(){
         return view('usuario.index');

@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 @endsection
 <!-- Titulo -->
-@section('titulo', 'Promociones')
+@section('titulo', 'Inicio')
 @section('styles')
     <link href="{{asset('dist/css/product-carousel.css')}}" rel="stylesheet">
 @endsection

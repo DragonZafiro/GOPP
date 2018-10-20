@@ -18,6 +18,9 @@ class AffiliateController extends Controller
     public function notificaciones(){
         return view('vistas.notificaciones');
     }
+    public function saldo(){
+        return view('afiliador.saldo');
+    }
     // Cierra el perfil y regresa a la selección de perfiles
     public function logout(){
         if(User::where('id', auth()->user()->id)->update(['loggedIn' => false])){

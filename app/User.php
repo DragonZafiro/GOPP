@@ -12,7 +12,7 @@ class User extends Authenticatable
     use Notifiable;
     public $timestamps = false;
     protected $fillable = [
-        'name', 'email', 'password', 'nick', 'fecha_nac', 'frase', 'direccion_num', 'direccion_calle',
+        'name', 'last_name', 'email', 'password', 'nick', 'fecha_nac', 'frase', 'direccion_num', 'direccion_calle',
         'direccion_delegacion', 'direccion_cp', 'direccion_estado', 'pais', 'puntos',
     ];
 

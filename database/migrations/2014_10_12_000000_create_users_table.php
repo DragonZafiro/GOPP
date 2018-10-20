@@ -28,11 +28,11 @@ class CreateUsersTable extends Migration
             $table->string('direccion_cp');
             $table->string('direccion_estado');
             $table->string('pais');
-            $table->string('puntos');
+            $table->string('puntos')->default('0');
             $table->string('loggedAs')->default('vacio');
             $table->string('loggedAsBusiness')->default('vacio');
             $table->boolean('loggedIn')->default(false);
-            $table->boolean('usuario')->default(false);
+            $table->boolean('usuario')->default(true);
             $table->boolean('empresa')->default(false);
             $table->boolean('afiliador')->default(false);
             $table->boolean('repartidor')->default(false);

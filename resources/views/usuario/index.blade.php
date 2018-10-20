@@ -1,9 +1,11 @@
 <!-- Contenido General | PROMOS -->
 <!-- Plantilla -->
 @extends('general')
-@php $user = App\User::find(auth()->user()->id);
+
+<?php
+$user = App\User::find(auth()->user()->id);
 $businesses = App\Business::all();
-@endphp
+?>
 @section('boostrap')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 @endsection

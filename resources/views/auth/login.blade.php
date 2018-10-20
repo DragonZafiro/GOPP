@@ -12,9 +12,11 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 		<!-- CSS Files -->
 		<link href="{{ asset("dist/css/login.css")}}" rel="stylesheet" />
-		<link rel="shortcut icon" href="{{ asset("dist/img/logo/GoppSimbolo.png") }}">
+        <link rel="shortcut icon" href="{{ asset("dist/img/logo/GoppSimbolo.png") }}">
+        <link rel="stylesheet" href="{{asset('dist/css/goppStyles.css')}}">
 	</head>
 	<body class="login-page sidebar-collapse">
+        @include('modules.formRegistro')
 		<nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
 			<div class="container">
 				<div class="collapse navbar-collapse">
@@ -78,7 +80,7 @@
                             @csrf
                         </form>
 						<div class="text-center">
-							<button class="btn btn-primary" data-toggle="modal" data-target="#miRegistroModal" style="margin-top: -100px; ">
+							<button class="btn btn-primary" data-toggle="modal" data-target="#form-registro" style="margin-top: -100px; ">
 							<i class="material-icons">how_to_reg</i> Registro
 							</button>
                         </div>
@@ -89,175 +91,13 @@
                         </div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="modal fade" id="miRegistroModal" tabindex="-1" role="dialog">
-			<div class="modal-dialog modal-login" role="document">
-				<div class="modal-content">
-					<div class="card card-signup card-plain">
-						<div class="modal-header">
-							<div class="card-header card-header-primary text-center">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
-								<h4 class="card-title">Registro</h4>
-							</div>
-						</div>
-						<div class="modal-body">
-							<form class="form" method="POST" action="phpClasses/registro.php" enctype="multipart/form-data">
-								<div class="card-body">
-                                    <div class="justify-content-center">
-                                        <div class="btn btn-primary btn-round">
-                                            <label class="material-icons">
-                                            attach_file
-                                            <input type="file" name="imagen" size="20" style="opacity: 0; width: 0px; height: 100%;" required>
-                                            </label>
-                                            Agregar foto.
-                                        </div>
-                                    </div>
-									<div class="form-group">
-										<label>Tipo de usuario</label>
-										<select class="form-control selectpicker" data-style="btn btn-link" name="tipoUsuario">
-											<option>Usuario</option>
-											<option>Praemie</option>
-											<option>Afiliador</option>
-											<option>Repartidor</option>
-											<option>Empresa</option>
-										</select>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">face</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" Nombre" name="nombre" required >
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">font_download</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" Apellido" name="apellido" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">date_range</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" 1990-12-20" name="fecha" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<label id="resultado"></label>
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">tag_faces</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" Apodo" name="apodo" required id="search">
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">contact_mail</i>
-											</span>
-											<input type="email" class="form-control" placeholder=" Correo" name="correo" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">lock</i>
-											</span>
-											<input type="password" class="form-control" placeholder=" Contraseña" name="contrasenia" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">contact_phone</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" Número" name="numero" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">store_mall_directory</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" Calle" name="calle" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">location_city</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" Colonia" name="colonia" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">account_balance</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" Delegación" name="delegacion" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">room</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" Código Postal" name="cp" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">place</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" Estado" name="estado" required>
-										</div>
-									</div>
-									<div class="form-group bmd-form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-											<i class="material-icons">map</i>
-											</span>
-											<input type="text" class="form-control" placeholder=" País" name="pais" required>
-										</div>
-									</div>
-								</div>
-								<div class="modal-footer justify-content-center">
-									<button type="submit" class="btn btn-primary">Registro</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade" id="repetido" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Modal title</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<i class="material-icons">clear</i>
-						</button>
-					</div>
-					<div class="modal-body">
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.
-						</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-link">Nice Button</button>
-						<button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
+            </div>
+            @if($errors == null)
+            <div class="alert alert-success" role="alert">
+                Te has registrado correctamente. ¡Por favor inicia sesión!
+            </div>
+            @endif
+        </div>
 		<footer class="footer">
 			<div class="container">
 				<nav class="float-left">

@@ -16,9 +16,12 @@
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="foto">Foto</label>
-                            <input type="file" class="form-control" name="file" id="file" placeholder="Foto">
-                            <span class="help-block file-error text-danger"></span>
+                            <label for="custom-file">Foto</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="file" name="file" lang="es">
+                                <label class="custom-file-label" for="file">Seleccionar...</label>
+                                <span class="help-block file-error text-danger"></span>
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="nombre">Nombre</label>

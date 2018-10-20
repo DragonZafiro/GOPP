@@ -4,6 +4,7 @@ Route::get('/', 'GuestController@index')->name('inicio');
 Route::get('/home', 'WebController@seleccionarModo')->name('home');
 Route::get('/praemie', 'WebController@praemie')->name('praemie');
 Route::get('/about', 'WebController@about')->name('about');
+Route::post('/register', 'UserController@store')->name('register');
 // Login prueba 2
 Route::get('/test', function(){
     return view('mapa');
@@ -37,7 +38,6 @@ Route::middleware(['session','usuario'])->group(function () {
     Route::get('/about/usuario','UserController@acercade')->name('usuario.about');
     Route::get('/cuenta/usuario','UserController@cuenta')->name('usuario.cuenta');
     Route::get('/switch/usuario','UserController@logout')->name('usuario.switch');
-
 });
 Route::middleware(['session','empresa'])->group(function () {
     // Rutas para empresa --------------------------------------
@@ -60,6 +60,7 @@ Route::middleware(['session','empresa'])->group(function () {
 Route::middleware(['session','afiliador'])->group(function () {
     // Rutas para afiliador
     Route::get('/afiliador','AffiliateController@inicio')->name('afiliador.inicio');
+    Route::get('/saldo', 'AffiliateController@saldo')->name('afiliador.saldo');
     Route::get('/notificaciones/afiliador','AffiliateController@notificaciones')->name('afiliador.notificaciones');
     // Rutas general
     Route::get('/cuenta/afiliador','AffiliateController@cuenta')->name('afiliador.cuenta');
