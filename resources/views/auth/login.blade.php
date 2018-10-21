@@ -9,11 +9,14 @@
 		<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 		<!--     Fonts and icons     -->
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-		<!-- CSS Files -->
+		<!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+            crossorigin="anonymous">
+        <!-- CSS Files -->
 		<link href="{{ asset("dist/css/login.css")}}" rel="stylesheet" />
         <link rel="shortcut icon" href="{{ asset("dist/img/logo/GoppSimbolo.png") }}">
         <link rel="stylesheet" href="{{asset('dist/css/goppStyles.css')}}">
+        <link rel="stylesheet" href="{{asset('dist/css/sweetalert2.min.css')}}">
 	</head>
 	<body class="login-page sidebar-collapse">
         @include('modules.formRegistro')
@@ -23,17 +26,17 @@
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item">
 							<a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Síguenos en Twitter">
-							<i class="fa fa-twitter"></i>
+							<i class="fab fa-twitter-square" ></i>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Síguenos en Facebook">
-							<i class="fa fa-facebook-square"></i>
+							<i class="fab fa-facebook-square" ></i>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="#" target="_blank" data-original-title="Síguenos en Instagram">
-							<i class="fa fa-instagram"></i>
+							<i class="fab fa-instagram" ></i>
 							</a>
 						</li>
 					</ul>
@@ -58,10 +61,8 @@
 										<span class="input-group-text">
 										<i class="material-icons">mail</i>
                                         </span>
-
 									</div>
                                     <input type="text" class="form-control" placeholder="Correo" name="email">
-
                                 </div>
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -80,7 +81,7 @@
                             @csrf
                         </form>
 						<div class="text-center">
-							<button class="btn btn-primary" data-toggle="modal" data-target="#form-registro" style="margin-top: -100px; ">
+							<button onclick="addForm()" class="btn btn-primary" style="margin-top: -100px; ">
 							<i class="material-icons">how_to_reg</i> Registro
 							</button>
                         </div>
@@ -92,11 +93,6 @@
 					</div>
 				</div>
             </div>
-            @if($errors == null)
-            <div class="alert alert-success" role="alert">
-                Te has registrado correctamente. ¡Por favor inicia sesión!
-            </div>
-            @endif
         </div>
 		<footer class="footer">
 			<div class="container">
@@ -113,13 +109,13 @@
 			</div>
 		</footer>
 		</div>
-		<!--   Core JS Files   -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
+        <!--   Core JS Files   -->
 		<script src="{{asset("dist/js/jquery.min.js")}}" type="text/javascript"></script>
 		<script src="{{asset("dist/js/popper.min.js")}}" type="text/javascript"></script>
 		<script src="{{asset("dist/js/bootstrap-material-design.min.js")}}" type="text/javascript"></script>
-		<script src="{{asset("dist/js/moment.min.js")}}"></script>
+        <script src="{{asset("dist/js/moment.min.js")}}"></script>
+        <script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
+        <script src="{{asset("dist/js/users.js ")}}"></script>
 		<!--  Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
 		<script src="{{asset("dist/js/bootstrap-datetimepicker.js")}}" type="text/javascript"></script>
 		<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->

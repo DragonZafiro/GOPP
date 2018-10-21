@@ -10793,7 +10793,7 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn.btn-just-icon.btn-sm .fa,
 .btn-group-sm>.btn.btn-just-icon .fa,
 .btn.btn-just-icon.btn-fab-mini .material-icons,
-.btn.btn-just-icon.btn-fab-mini .fa {
+.btn.btn-just-icon.btn-fab-mini .fab{
   font-size: 17px;
   line-height: 29px;
 }
@@ -10821,7 +10821,7 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn.btn-just-icon.btn-lg .material-icons,
 .btn-group-lg>.btn.btn-just-icon .material-icons,
 .btn.btn-just-icon.btn-lg .fa,
-.btn-group-lg>.btn.btn-just-icon .fa {
+.btn-group-lg>.btn.btn-just-icon .fab{
   font-size: 32px;
   line-height: 56px;
 }
@@ -10829,7 +10829,7 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn.btn-fab .material-icons,
 .btn.btn-fab .fa,
 .btn.btn-just-icon .material-icons,
-.btn.btn-just-icon .fa {
+.btn.btn-just-icon .fab{
   margin-top: 0;
   position: absolute;
   width: 100%;
@@ -10854,7 +10854,7 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 }
 
 .btn .material-icons,
-.btn:not(.btn-just-icon):not(.btn-fab) .fa {
+.btn:not(.btn-just-icon):not(.btn-fab) .fab{
   position: relative;
   display: inline-block;
   top: 0;
@@ -11912,7 +11912,7 @@ fieldset[disabled] .form-group.is-focused .form-check .form-check-label {
 }
 
 .carousel.carousel-full-nagivation .carousel-control .material-icons,
-.carousel.carousel-full-nagivation .carousel-control .fa {
+.carousel.carousel-full-nagivation .carousel-control .fab{
   display: none;
 }
 
@@ -13961,7 +13961,7 @@ textarea {
   line-height: 20px;
 }
 
-.navbar .navbar-nav .nav-item .nav-link:not(.btn-just-icon) .fa {
+.navbar .navbar-nav .nav-item .nav-link:not(.btn-just-icon) .fab{
   position: relative;
   top: 2px;
   margin-top: -4px;
@@ -13969,7 +13969,7 @@ textarea {
 }
 
 .navbar .navbar-nav .nav-item .nav-link .material-icons,
-.navbar .navbar-nav .nav-item .nav-link .fa {
+.navbar .navbar-nav .nav-item .nav-link .fab{
   font-size: 1.25rem;
   max-width: 24px;
   margin-top: -1.1em;
@@ -16476,7 +16476,7 @@ footer .pull-center {
   display: none;
 }
 
-.card .card-category-social .fa {
+.card .card-category-social .fab{
   font-size: 24px;
   position: relative;
   margin-top: -4px;

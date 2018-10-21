@@ -1,12 +1,4 @@
-@php
-if(!auth()->guest()){
-    $user = auth()->user();
-    $user_profile = $user->getUserImage();
-    $user_cover = $user->getCoverImage();
-    $business = $user->getBusinessSelected();
-}
-@endphp
-
+@php $user = auth()->user(); @endphp
 <!DOCTYPE html>
 <html lang="es">
 	<head>
@@ -43,20 +35,20 @@ if(!auth()->guest()){
                             <div class="userPhotoAligner">
                                 <center>
                                     <div class="roundElementContainer squareSizeL">
-                                        <img src="{{$user_profile}}">
+                                        <img src="{{$user->getUserImage()}}">
                                     </div>
                                 </center>
                             </div>
-                            <img class="coverPicture" src="{{$user_cover}}">
+                            <img class="coverPicture" src="{{$user->getCoverImage()}}">
                             @else
-                            <img class="coverPicture" src="{{$user_profile  }}">
+                            <img class="coverPicture" src="{{$user->getUserImage()  }}">
                             @endif
                             <div class="userNameForUserCard">
                                 <h4>
                                     @if($user->loggedAsBusiness == 'vacio')
                                         {{$user->name}}
                                     @else
-                                        {{$business->nombre}}
+                                        {{$user->getBusinessSelected()->nombre}}
                                     @endif
                                 </h4>
                                 <p>{{$user->nick}}</p>
@@ -70,6 +62,11 @@ if(!auth()->guest()){
                             </center>
                         </div>
                         <img class="coverPicture" src="{{asset('dist/img/user/cover/default.jpg')}}">
+                        <div class="userNameForUserCard">
+                                <h4>
+                                    Invitado
+                                </h4>
+                            </div>
                         @endif
                         </div>
                     </div>
@@ -90,7 +87,7 @@ if(!auth()->guest()){
 								<div class="row">
 									<div class="col-3">
 										<div class="align-self-start" data-target="#sBar">
-											<a href="#menu-toggle" id="menu-toggle" class="fas fa-bars txtWhite txtM"></a>
+											<a href="#menu-toggle" id="menu-toggle" class="iniciar-sesion fas fa-bars txtWhite txtM"></a>
 										</div>
 									</div>
 									<div class="col-9">
@@ -102,7 +99,7 @@ if(!auth()->guest()){
                             @if(!auth()->guest())
                                 <div class="px-1">
                                     <div class='roundElementContainer squareSizeXXS'>
-                                        <img src="{{$user_profile}}">
+                                        <img src="{{$user->getUserImage()}}">
                                     </div>
                                 </div>
                                 <div class="px-1">
@@ -110,7 +107,7 @@ if(!auth()->guest()){
                                         @if($user->loggedAsBusiness == 'vacio')
                                             {{$user->nick}}
                                         @else
-                                            {{$business->nombre}}
+                                            {{$user->getBusinessSelected()->nombre}}
                                         @endif
                                     </a>
                                 </div>
@@ -121,7 +118,7 @@ if(!auth()->guest()){
                                 </div>
                             @else
                                 <div class="px-1">
-                                    <span class="text-white p mr-3 pt-3">Bienvenido <a id="a-login" class="text-green" href="login">Iniciar Sesión</a>
+                                    <span class="text-white p mr-3 pt-3">Bienvenido <a id="a-login" class="text-green iniciar-sesion" href="login">Iniciar Sesión</a>
                                 </div>
                             @endif
                             </div>

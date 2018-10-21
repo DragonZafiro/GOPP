@@ -287,63 +287,63 @@ card>a:hover {
 }
 
 .bg-usuario {
-	background: var(--usuarioColor);
+	background: var(--usuarioColor) !important;
 }
 
 .bg-praemie {
-	background: var(--praemieColor);
+	background: var(--praemieColor) !important;
 }
 
 .bg-afiliador {
-	background: var(--afiliadorColor);
+	background: var(--afiliadorColor) !important;
 }
 
 .bg-repartidor {
-	background: var(--repartidorColor);
+	background: var(--repartidorColor) !important;
 }
 
 .bg-empresa {
-	background: var(--empresaColor);
+	background: var(--empresaColor) !important;
 }
 
 .bg-colorBgUsuarioDarck {
-	background: var(--usuarioColorDarck);
+	background: var(--usuarioColorDarck) !important;
 }
 
 .bg-colorBgPraemieDarck {
-	background: var(--praemieColorDarck);
+	background: var(--praemieColorDarck) !important;
 }
 
 .bg-colorBgAfiliadorDarck {
-	background: var(--afiliadorColorDarck);
+	background: var(--afiliadorColorDarck) !important;
 }
 
 .bg-colorBgRepartidorDarck {
-	background: var(--repartidorColorDarck);
+	background: var(--repartidorColorDarck) !important;
 }
 
 .bg-colorBgEmpresaLight {
-	background: var(--empresaColorDarck);
+	background: var(--empresaColorDarck) !important;
 }
 
 .bg-colorBgUsuarioLight {
-	background: var(--usuarioColorLight);
+	background: var(--usuarioColorLight) !important;
 }
 
 .bg-colorBgPraemieLight {
-	background: var(--praemieColorLight);
+	background: var(--praemieColorLight) !important;
 }
 
 .bg-colorBgAfiliadorLight {
-	background: var(--afiliadorColorLight);
+	background: var(--afiliadorColorLight) !important;
 }
 
 .bg-colorBgRepartidorLight {
-	background: var(--repartidorColorLight);
+	background: var(--repartidorColorLight) !important;
 }
 
 .bg-colorBgEmpresaLight {
-	background: var(--empresaColorLight);
+	background: var(--empresaColorLight) !important;
 }
 
 .bg-colorBgGradientBlackToGrey {

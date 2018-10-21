@@ -129,16 +129,13 @@
 $('.modalRegistro').on('show.bs.modal', function () {
     $('.modalRegistro').css("margin-left", $(window).width() - $('.modal-content').width() - 100);
 });
-$('a').click(function(){
+$('a').not('.iniciar-sesion').click(function(){
     $('.modalRegistro').modal('show');
 });
 </script>
 {{-- Movimiento de ofertas --}}
 @foreach($businesses as $business)
-    @php
-        $promos = $business->getBusinessPromos();
-    @endphp
-    @if ($promos->first() != null)
+    @if ($business->getBusinessPromos()->first() != null)
         <script>
                 $('#carousel-{{$business->id}}').on('slide.bs.carousel', function (e) {
                     var $e = $(e.relatedTarget);

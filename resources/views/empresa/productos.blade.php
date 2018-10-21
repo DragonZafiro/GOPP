@@ -10,9 +10,6 @@
 @endsection
 <!-- Contenido -->
 @section('contenido-padding')
-@if ($errors->any())
-<p>Hay errores!</p>
-@endif
     @include('modules.formProductos')
     <h1 class="display-4 text-empresa">Mis Productos y Servicios</h1>
     <div style="color: #1eb6a7;font-weight: bold;font-size: 14px;" hidden id="error_msg2"></div>

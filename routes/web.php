@@ -7,14 +7,19 @@ Route::get('/about', 'WebController@about')->name('about');
 Route::post('/register', 'UserController@store')->name('register');
 // Login prueba 2
 Route::get('/test', function(){
-    return view('mapa');
+    return view('test');
 });
 // Logeo
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 // Modo de ingreso
+Auth::routes(['verify' => true]);
 Route::put('/validar','WebController@validar')->name('validar');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/{id}/edit', 'UserController@edit');
+    Route::put('/user/{id}/edit', 'UserController@update');
+});
 //------------------------------------------------------------------
 Route::middleware(['session','usuario'])->group(function () {
     // Rutas para usuarios --------------------------------------

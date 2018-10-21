@@ -17,6 +17,7 @@ if($user->loggedAs == 'empresa'){
     <link href="{{asset('dist/css/boletin.css')}}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js"></script>
+    <link rel="stylesheet" href="{{asset('dist/css/sweetalert2.min.css')}}">
 @endsection
 <!-- Contenido -->
 @section('contenido')
@@ -32,11 +33,12 @@ if($user->loggedAs == 'empresa'){
 @endcomponent
 @endsection
 @section('contenido-padding')
+    @include('modules.formRegistro')
     <!-- Columnas de información -->
     @component('modules.info-cuenta')
         <!-- Cuenta de usuario general -->
         @slot('section1')
-            <div class="roundElementContainer squareSizeL"><img src="{{$user_profile}}" alt=""></div>
+            <div  class="roundElementContainer squareSizeL"><img src="{{$user_profile}}" alt=""></div>
             <h1 class="display-4 text-{{$user->loggedAs}}">Usuario</h1>
             <div class=" col-sm-12 lead text-white">Nombre: {{$user->name}}</div>
             <div class=" col-sm-12 lead text-white">Apodo: {{$user->nick}}</div>
@@ -56,7 +58,7 @@ if($user->loggedAs == 'empresa'){
                 @endif
                 <div class="col-md-6 offset-md-3">
                     <br>
-                    <button class="btn btn-goppBtn btn-lg btn-danger" data-toggle="modal" data-target="#convierteteEnMas">Editar Cuenta</button>
+                    <button class="btn btn-goppBtn btn-lg btn-danger" onclick="editForm({{$user->id}})">Editar Cuenta</button>
                 </div>
             </div>
         @endslot
@@ -290,6 +292,8 @@ if($user->loggedAs == 'empresa'){
     @endcomponent
 @endsection
 @section('scripts')
+    <script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
+    <script src="{{asset("dist/js/users.js ")}}"></script>
     <script>
     $("#demoModal1").on( "click", function() {
             $('#demoBoletinModal').modal('hide');

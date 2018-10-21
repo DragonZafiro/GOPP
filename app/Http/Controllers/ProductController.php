@@ -132,7 +132,7 @@ class ProductController extends Controller
                 'stock' => $request['stock'],
                 'comentario' => $request['comentario']
         ]))
-            return response()->json(['sucess' => true, 'message' => "mamón"]);
+            return response()->json(['sucess' => true, 'message' => "ok"]);
         $errors = $validator->errors();
         return response()->json([
             'success' => false,

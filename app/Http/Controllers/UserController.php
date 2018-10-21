@@ -46,18 +46,63 @@ class UserController extends Controller
                 $file_name = $user->id . '_' . $user->nick . '.' . $file->extension();
                 $file_path = 'dist/img/user/profile/';
                 $file->move($file_path, $file_name);
-                $credentials = $request->only('email', 'password');
-                if (Auth::attempt($credentials)) {
-                    return redirect()->intended('home');
-                }
             }
+            return response()->json(['sucess' => true, 'message' => "ok"]);
         }
         $errors = $validator->errors();
         return response()->json([
             'success' => false,
             'message' => json_decode($errors)
         ], 422);
+    }
+    public function update(Request $request, $id)
+    {
 
+        $validator = $this->validate($request, [
+            'foto' => 'file|mimes:jpeg,gif,png',
+            'nombre' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'nick' => 'required|max:255',
+            'email' => 'required|email',
+            'fecha_nac' => 'required|date',
+            'direccion_calle' => 'required|max:255',
+            'direccion_num' => 'required|max:255',
+            'direccion_estado' => 'required|max:255',
+            'direccion_cp' => 'required|max:255',
+            'pais' => 'required|max:255'
+        ]);
+
+        $user = User::find($id);
+        if ($request->file('foto')) {
+            $file = $request->file('foto');
+            $file_name = $user->id . '_' . $user->nick . '.' . $file->extension();
+            $file_path = 'dist/img/user/profile/';
+            if (Storage::exists($file_path, $file_name))
+                Storage::delete($file_path, $file_name);
+            $file->move($file_path, $file_name);
+        }
+        if ($user->update([
+            'name' => $request['nombre'],
+            'last_name' => $request['last_name'],
+            'nick' => $request['nick'],
+            'email' => $request['email'],
+            'fecha_nac' => $request['fecha_nac'],
+            'direccion_num' => $request['direccion_num'],
+            'direccion_calle' => $request['direccion_calle'],
+            'direccion_delegacion' => 'La Paz',
+            'direccion_cp' => $request['direccion_cp'],
+            'direccion_estado' => $request['direccion_estado'],
+            'pais' => $request['pais'],
+        ]))
+            return response()->json(['sucess' => true, 'message' => "ok"]);
+        $errors = $validator->errors();
+        return response()->json([
+            'success' => false,
+            'message' => json_decode($errors)
+        ], 422);
+    }
+    public function edit($id){
+        return User::find($id);
     }
     public function promos(){
         return view('usuario.index');
