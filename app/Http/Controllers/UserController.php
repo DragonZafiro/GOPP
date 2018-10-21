@@ -13,8 +13,8 @@ class UserController extends Controller
             'foto' => 'required|file|mimes:jpeg,gif,png',
             'nombre' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'nick' => 'required|max:255',
-            'email' => 'required|email',
+            'nick' => 'required|max:255|unique:users',
+            'email' => 'required|email|unique:users',
             'confirmPassword' => 'required|max:255',
             'fecha_nac' => 'required|date',
             'direccion_calle' => 'required|max:255',
@@ -22,6 +22,20 @@ class UserController extends Controller
             'direccion_estado' => 'required|max:255',
             'direccion_cp' => 'required|max:255',
             'pais' => 'required|max:255'
+        ],[
+            'foto.file' => 'Debes elegir una imagen valida',
+            'foto.mimes' => 'Debes elegir una imagen valida',
+            'nombre.required' => 'Debes escribir tu(s) nombre(s)',
+            'last_name.required' => 'Debes escribir tus apellidos',
+            'nick.required' => 'Debes escribir un usuario',
+            'nick.unique' => 'Este usuario ya se encuentra registrado',
+            'email.required' => 'Debes escribir tu correo electrónico',
+            'email.unique' => 'Este correo ya se encuentra registrado',
+            'confirmPassword.required' => 'Debes escribir alguna contraseña',
+            'direccion_calle.required' => 'Debes escribir tu dirección',
+            'direccion_num.required' => 'Debes escribir el número de tu piso/casa/etc',
+            'direccion_estado.required' => 'Debes escribir el estado en donde vives',
+            'direccion_cp.required' => 'Debes escribir tu código postal',
         ]);
         $data = [
             'name' => $request['nombre'],
@@ -57,22 +71,34 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-
+        $user = User::find($id);
         $validator = $this->validate($request, [
             'foto' => 'file|mimes:jpeg,gif,png',
             'nombre' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'nick' => 'required|max:255',
-            'email' => 'required|email',
+            'nick' => 'required|max:255|unique:users,nick,'.$user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
             'fecha_nac' => 'required|date',
             'direccion_calle' => 'required|max:255',
             'direccion_num' => 'required|max:255',
             'direccion_estado' => 'required|max:255',
             'direccion_cp' => 'required|max:255',
             'pais' => 'required|max:255'
+        ],[
+            'foto.file' => 'Debes elegir una imagen valida',
+            'foto.mimes' => 'Debes elegir una imagen valida',
+            'nombre.required' => 'Debes escribir tu(s) nombre(s)',
+            'last_name.required' => 'Debes escribir tus apellidos',
+            'nick.required' => 'Debes escribir un usuario',
+            'nick.unique' => 'Este usuario ya se encuentra registrado',
+            'email.required' => 'Debes escribir tu correo electrónico',
+            'email.unique' => 'Este correo ya se encuentra registrado',
+            'direccion_calle.required' => 'Debes escribir tu dirección',
+            'direccion_num.required' => 'Debes escribir el número de tu piso/casa/etc',
+            'direccion_estado.required' => 'Debes escribir el estado en donde vives',
+            'direccion_cp.required' => 'Debes escribir tu código postal',
         ]);
 
-        $user = User::find($id);
         if ($request->file('foto')) {
             $file = $request->file('foto');
             $file_name = $user->id . '_' . $user->nick . '.' . $file->extension();

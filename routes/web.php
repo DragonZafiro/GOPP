@@ -4,7 +4,7 @@ Route::get('/', 'GuestController@index')->name('inicio');
 Route::get('/home', 'WebController@seleccionarModo')->name('home');
 Route::get('/praemie', 'WebController@praemie')->name('praemie');
 Route::get('/about', 'WebController@about')->name('about');
-Route::post('/register', 'UserController@store')->name('register');
+Route::post('/registro', 'UserController@store')->name('registro');
 // Login prueba 2
 Route::get('/test', function(){
     return view('test');

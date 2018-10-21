@@ -43,7 +43,7 @@ function editForm(id) {
 // Enviar datos JSON
 $('#submitButton').click(function () {
     var id = $('#id').val();
-    if (save_method == 'add') url = "register";
+    if (save_method == 'add') url = "registro";
     else url = "../user/" + id + "/edit";
     $.ajax({
         url: url,

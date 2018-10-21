@@ -22,8 +22,8 @@
                     </div>
                     <div class="form-row ">
                         <div class="form-group col-md-6">
-                            <label for="nick"><span class="fas fa-hashtag"></span> Nick (Apodo)</label>
-                            <input type="text" class="form-control" id="nick" name="nick" placeholder="MiNick123">
+                            <label for="nick"><span class="fas fa-hashtag"></span> Usuario</label>
+                            <input type="text" class="form-control" id="nick" name="nick" placeholder="miUsuario123">
                             <span class="help-block nick-error text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">

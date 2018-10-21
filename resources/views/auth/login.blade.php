@@ -46,7 +46,7 @@
 		<div class="page-header header-filter" style="background-image: url('{{ asset("dist/img/bg_login.jpg") }}'); background-size: cover; background-position: top center;">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4 col-md-6 ml-auto mr-auto">
+				<div class="col-lg-4 col-md-4 ml-auto mr-auto">
 					<div class="card card-login">
                     <form class="form" method="post" action="{{ route('login') }}">
 							<br>
@@ -62,7 +62,10 @@
 										<i class="material-icons">mail</i>
                                         </span>
 									</div>
-                                    <input type="text" class="form-control" placeholder="Correo" name="email">
+                                    <input type="text" class="form-control is-invalid" placeholder="Usuario o correo electrónico" name="email" value="{{old('email')}}">
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('email') }}
+                                    </div>
                                 </div>
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -70,25 +73,23 @@
 										<i class="material-icons">lock_outline</i>
 										</span>
 									</div>
-									<input type="password" class="form-control" placeholder="Contraseña" name="password">
+                                    <input type="password" class="form-control is-invalid" placeholder="Contraseña" name="password">
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('password') }}
+                                    </div>
 								</div>
-							</div>
+                            </div>
+
 							<div class="text-center">
-								<br>
 								<button type="submit" class="btn btn-primary">
                                 <i class="material-icons">arrow_forward_ios</i> Entrar</button>
                             </div>
                             @csrf
                         </form>
-						<div class="text-center">
-							<button onclick="addForm()" class="btn btn-primary" style="margin-top: -100px; ">
-							<i class="material-icons">how_to_reg</i> Registro
-							</button>
-                        </div>
                         <div class="text-center">
-                            @foreach ($errors->all() as $error)
-                            <p class="text-danger">{{ $error }}</p>
-                            @endforeach
+							<a href="#" onclick="addForm()" class="text-green">
+							    ¿No tienes cuenta? Registrate aquí
+                            </a>
                         </div>
 					</div>
 				</div>
