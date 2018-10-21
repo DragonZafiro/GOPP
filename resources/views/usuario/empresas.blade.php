@@ -16,19 +16,39 @@ $categories = App\CategoryModel::all();
 <!-- Barra de búsqueda -->
 @section('contenido')
 <nav class="navbar navbar-expand-md navbar-light bg-faded">
-    <h4 class="navbar-brand" style="color:darkolivegreen;">Todos los negocios</h4>
+    <h4 class="navbar-brand" style="color:darkolivegreen;">
+        @if($category == "todas" || $category == null)
+            Todas las categorías
+        @else
+            {{$category->nombre}}
+        @endif
+    </h4>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar5">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="navbar5">
         <form class="mx-2 my-auto d-inline w-100" action="{{route('usuario.empresas')}}" method="get">
-            <div class="input-group">
+            <div class="row">
+            <div class="input-group col-10">
                 <input type="text" name='s' value="{{ Request::query('s') }}" class="form-control border border-right-0" placeholder="Buscar (Nombre o descripción)...">
                 <span class="input-group-append">
                 <button class="btn btn-outline-secondary border border-left-0" type="submit">
                     <i class="fa fa-search"></i>
                 </button>
               </span>
+            </div>
+            <div class="input-group col-2">
+                <select class="custom-select" id="categoria" name="categoria" value="{{ Request::query('category') }}">
+                    <option value="todas">Todas las categorías</option>
+                    @foreach ($categories as $categoria)
+                        @if($category == $categoria)
+                            <option selected="selected" value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                        @else
+                            <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
             </div>
         </form>
     </div>
@@ -37,30 +57,36 @@ $categories = App\CategoryModel::all();
 @section('contenido-padding')
 {{-- EMPRESAS TODAS--}}
 @if($s == null)
-    @foreach ($categories as $category)
+    <?php
+    if($category == "todas" || $category == null)
+        $categories = App\CategoryModel::all();
+    else
+        $categories = App\CategoryModel::find($category);
+    ?>
+    @foreach ($categories as $categoria)
     @php
-        $businesses = $category->getBusiness();
+        $businesses = $categoria->getBusiness();
     @endphp
-    @if ($businesses->first() != null)
+    @if($businesses->first() != null)
     <br>
     <div class="card-oferta-container container-fluid">
         <div class="row col-lg-12">
             <div class="col-md-6">
                 <img class="float-left rounded-circle mr-4" style="height:60px" src="" />
-                <h3 class="text-usuario">{{$category->nombre}}</h3>
+                <h3 class="text-usuario">{{$categoria->nombre}}</h3>
                 <h5>{{$businesses->count()}} Negocio(s) disponibles</h5>
             </div>
         </div>
-        <div id="carousel-{{$category->id}}" class="carousel slide" data-ride="carousel" data-interval="9000">
+        <div id="carousel-{{$categoria->id}}" class="carousel slide" data-ride="carousel" data-interval="9000">
             <!-- Wrapper for slides -->
-            <div class="carousel-inner principal_{{$category->id}} row w-100 mx-auto" role="listbox">
+            <div class="carousel-inner principal_{{$categoria->id}} row w-100 mx-auto" role="listbox">
                 <?php $i = 0; ?>
                 @foreach ($businesses as $buss)
                 @if($i != 1)
-                    <div class="carousel-item items_{{$category->id}} col-md-3 active">
+                    <div class="carousel-item items_{{$categoria->id}} col-md-3 active">
                     <?php $i = 1;?>
                     @else
-                    <div class="carousel-item items_{{$category->id}} col-md-3">
+                    <div class="carousel-item items_{{$categoria->id}} col-md-3">
                         @endif
                         <div class="img-wrap">
                             <div class="roundElementContainer  text-center">
@@ -81,18 +107,18 @@ $categories = App\CategoryModel::all();
                     </div>
                 @endforeach
             </div>
-            <a class="carousel-control-prev" href="#carousel-{{$category->id}}" role="button" data-slide="prev" style="width: 20px!important;">
+            <a class="carousel-control-prev" href="#carousel-{{$categoria->id}}" role="button" data-slide="prev" style="width: 20px!important;">
                 <span class="text-usuario txtM fas fa-caret-left" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carousel-{{$category->id}}" role="button" data-slide="next" style="width: 20px!important;">
+            <a class="carousel-control-next" href="#carousel-{{$categoria->id}}" role="button" data-slide="next" style="width: 20px!important;">
                 <span class="text-usuario txtM fas fa-caret-right" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
     </div>
     @endif
-    @endforeach
+@endforeach
 @elseif($s != null && $business->count() > 0)
 {{-- BUSQUEDA EMPRESAS --}}
 <br>
@@ -150,27 +176,27 @@ $categories = App\CategoryModel::all();
 {{-- SCRIPTS --}}
 @section('scripts')
 {{-- TODOS LOS NEGOCIOS--}}
-@foreach($categories as $category)
+@foreach($categories as $categoria)
     @php
-        $businesses = $category->getBusiness();
+        $businesses = $categoria->getBusiness();
     @endphp
     @if ($businesses->first() != null)
         <script>
-                $('#carousel-{{$category->id}}').on('slide.bs.carousel', function (e) {
+                $('#carousel-{{$categoria->id}}').on('slide.bs.carousel', function (e) {
                     var $e = $(e.relatedTarget);
                     var idx = $e.index();
                     var itemsPerSlide = 4;
-                    var totalItems = $('.items_{{$category->id}}').length;
+                    var totalItems = $('.items_{{$categoria->id}}').length;
 
                     if (idx >= totalItems-(itemsPerSlide-1)) {
                         var it = itemsPerSlide - (totalItems - idx);
                         for (var i=0; i<it; i++) {
                             // append slides to end
                             if (e.direction=="left") {
-                                $('.items_{{$category->id}}').eq(i).appendTo('.principal_{{$category->id}}');
+                                $('.items_{{$categoria->id}}').eq(i).appendTo('.principal_{{$categoria->id}}');
                             }
                             else {
-                                $('.items_{{$category->id}}').eq(0).appendTo('.principal_{{$category->id}}');
+                                $('.items_{{$categoria->id}}').eq(0).appendTo('.principal_{{$categoria->id}}');
                             }
                         }
                     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Business;
+use App\CategoryModel;
 use Auth;
 class UserController extends Controller
 {
@@ -134,7 +135,8 @@ class UserController extends Controller
         return view('usuario.index');
     }
     public function categorias(){
-        return view('usuario.categorias');
+        $categories = CategoryModel::all();
+        return view('usuario.categorias', ['categories' => $categories]);
     }
     public function cuenta(){
         return view('vistas.cuenta');
@@ -143,13 +145,20 @@ class UserController extends Controller
         return view('usuario.puntos');
     }
     public function empresas(Request $request){
-		$s = $request->query('s');
+        $s = $request->query('s');
+        $q = $request->query('categoria');
+        $category = CategoryModel::find($q);
 		// Query and paginate result
-		$business = Business::where('nombre', 'like', "%$s%")
-            ->orWhere('descripcion', 'like', "%$s%");
-        $business = Business::where('nombre', 'like', "%$s%")
-            ->orWhere('descripcion', 'like', "%$s%");
-        return view('usuario.empresas', ['business' => $business, 's' => $s ]);
+        if($category == null){
+            $business = Business::where('descripcion', 'like', "%$s%")
+            ->orWhere('nombre', 'like', "%$s%");
+        }
+        else{
+            $q = Business::where('descripcion', 'like', "%$s%")
+            ->orWhere('nombre', 'like', "%$s%");
+            $business = $q->where('category_id', '=', $category->id);
+        }
+        return view('usuario.empresas', ['business' => $business, 's' => $s , 'category' => $category ]);
     }
     public function mapa(){
         return view('usuario.mapa');
