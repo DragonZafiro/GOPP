@@ -74,7 +74,7 @@ $categories = App\CategoryModel::all();
             <div class="col-md-6">
                 <img class="float-left rounded-circle mr-4" style="height:60px" src="" />
                 <h3 class="text-usuario">{{$categoria->nombre}}</h3>
-                <h5>{{$businesses->count()}} Negocio(s) disponibles</h5>
+                <h5>{{$businesses->count()}} Negocio(s) disponibles.</h5>
             </div>
         </div>
         <div id="carousel-{{$categoria->id}}" class="carousel slide" data-ride="carousel" data-interval="9000">
@@ -125,7 +125,7 @@ $categories = App\CategoryModel::all();
 <div class="card-oferta-container container-fluid">
     <div class="row col-lg-12">
         <div class="col-md-6">
-            <h5>{{$business->count()}} Negocio(s) encontrados</h5>
+            <h5>{{$business->count()}} Negocio(s) encontrados. Resultados de {{$s}}:</h5>
         </div>
     </div>
     <div id="carousel-business" class="carousel slide" data-ride="carousel" data-interval="9000">
@@ -170,7 +170,7 @@ $categories = App\CategoryModel::all();
     </div>
 </div>
 @else
-    <h5 class="text-center text-usuario"> No se han encontrado negocios </h5>
+    <h5 class="text-center text-usuario"> No se han encontrado resultados de {{$s}}</h5>
 @endif
 @endsection
 {{-- SCRIPTS --}}

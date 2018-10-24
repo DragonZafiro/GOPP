@@ -6,18 +6,23 @@
         background-image: url(https://www.w3schools.com/bootstrap4/chicago.jpg);
     }
 </style>
-<div class="modal fade" id="modalBoletin" tabindex="-1" role="dialog" aria-labelledby="modalBoletinLabel" aria-hidden="true">
+<div class="modal fade" id="modalBoletin" role="dialog" aria-labelledby="modalBoletin" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <a href="{{$enlace}}">
-            <div class="boletin">
-                <ul>
-                    <li id="first-offer">
-                        <h1><em>{{$titulo}}</em></h1>
-                        <h2>{{$contenido}}<br>-</h2>
-                    </li>
-                </ul>
+            <div class="modal-body">
+                <button type="button" class="close top-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <a href="{{$enlace}}">
+                <div class="boletin">
+                    <ul>
+                        <li id="first-offer">
+                            <h1><em>{{$titulo}}</em></h1>
+                            <h2>{{$contenido}}<br>-</h2>
+                        </li>
+                    </ul>
+                </div>
             </a>
         </div>
     </div>

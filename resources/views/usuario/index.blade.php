@@ -13,23 +13,15 @@ $businesses = App\Business::all();
 @section('titulo', 'Promociones')
 @section('styles')
     <link href="{{asset('dist/css/product-carousel.css')}}" rel="stylesheet">
+    <link href="{{asset('dist/css/carrito.css')}}" rel="stylesheet">
     {{-- Animación Boletín --}}
     <link href="{{asset('dist/css/boletin.css')}}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js"></script>
 @endsection
 <!-- Contenido -->
 @section('contenido')
-<!-- Boletín -->
-@component('modules.formBoletin')
-    @php
-        $boletin = App\Boletin::inRandomOrder()->get()->first();
-    @endphp
-    @slot('titulo',$boletin->titulo)
-    @slot('contenido',$boletin->contenido)
-    @slot('enlace',$boletin->enlace)
-    @slot('imagen',$boletin->getBoletinImg())
-@endcomponent
+<!-- Carrito de compras -->
+@include('modules.modalCarrito')
+{{-- Carousel --}}
 @include('modules.carousel')
 <div class="container">
     <div class="row  my-4 text-{{$user->loggedAs}}">
@@ -75,7 +67,6 @@ $businesses = App\Business::all();
                 @else
                 <div class="carousel-item items_{{$business->id}} col-md-3">
                     @endif
-
                     <div class="card card-product mx-auto d-block">
                         <div class="img-wrap">
                             <a href="#" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
@@ -112,7 +103,20 @@ $businesses = App\Business::all();
     </div>
 @endif
 @endforeach
+    @include('modules.footerMenu')
+    <!-- Boletín -->
+@component('modules.formBoletin')
+    @php
+        $boletin = App\Boletin::inRandomOrder()->get()->first();
+    @endphp
+    @slot('titulo',$boletin->titulo)
+    @slot('contenido',$boletin->contenido)
+    @slot('enlace',$boletin->enlace)
+    @slot('imagen',$boletin->getBoletinImg())
+@endcomponent
 @endsection
+{{-- Menú Footer --}}
+{{-- ----------------------------------------------------- --}}
 @section('scripts')
 {{-- Animación de boletín --}}
 <script src="{{asset('dist/js/boletin.js')}}"></script>

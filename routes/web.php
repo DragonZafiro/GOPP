@@ -7,7 +7,7 @@ Route::get('/about', 'WebController@about')->name('about');
 Route::post('/registro', 'UserController@store')->name('registro');
 // Login prueba 2
 Route::get('/test', function(){
-    return view('test');
+    return view('mapa');
 });
 // Logeo
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
