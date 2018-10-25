@@ -16,8 +16,8 @@
 @section('contenido')
 {{-- Modal Registro Invitado --}}
 <div id="modalRegistro" class="modal fade modalRegistro" tabindex="-1" role="dialog" aria-labelledby="smallRegistro" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content mw-350" style="width: 350px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-body">
             <p class="font-weight-light">¡Hola invitado!<br>
             <span class="font-weight-bold">Por favor ingresa para continuar</span></p>
@@ -42,17 +42,17 @@
 @endcomponent
 @include('modules.carousel')
 <div class="container">
-    <div class="row  my-4 text-usuario">
+    <div class="row  my-4 text-usuario txtXXL text-center">
         <div class="col-4 p-0">
-            <center style="font-size:5em;"><span class="align-self-center fa fa-rocket"></span></center>
+            <span class="align-self-center fa fa-rocket mh-100"></span>
             <p class="lead align-self-end text-center">Rápido</p>
         </div>
         <div class="col-4 p-0">
-            <center style="font-size:5em;"><span class="align-self-center far fa-life-ring"></span></center>
+            <span class="align-self-center far fa-life-ring mh-50"></span>
             <p class="lead align-self-end text-center">Seguro</p>
         </div>
         <div class="col-4 p-0">
-            <center style="font-size:5em;"><span class="align-self-center fas fa-star"></span></center>
+            <span class="align-self-center fas fa-star"></span>
             <p class="lead align-self-end text-center">Calidad</p>
         </div>
     </div>
@@ -127,7 +127,7 @@
 {{-- Funciones Invitado --}}
 <script>
 $('.modalRegistro').on('show.bs.modal', function () {
-    $('.modalRegistro').css("margin-left", $(window).width() - $('.modal-content').width() - 100);
+    $('.modalRegistro').css("margin-left", $(window).width() - $('.modal-content').width() - 220);
 });
 $('a').not('.iniciar-sesion').click(function(){
     $('.modalRegistro').modal('show');

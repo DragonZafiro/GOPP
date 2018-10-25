@@ -272,7 +272,7 @@ if($user->loggedAs == 'empresa'){
     @component('modules.info-cuenta')
         <!-- Cuenta de usuario general -->
         @slot('section1')
-            <h1 class="display-4 text-{{$user->loggedAs}}">Conviertete en Más</h1>
+            <h1 class="display-4 text-truncate text-{{$user->loggedAs}}">Conviertete en Más</h1>
             <p class="lead text-white">En GOPP puedes ser más que un usuario, checa esto:</p>
             <div class="row">
                 <div class="col-md-6 offset-md-3">

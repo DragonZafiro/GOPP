@@ -7,25 +7,28 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 @endsection
 @section('styles')
+    <link rel="stylesheet" href="{{asset('dist/DataTables/css/jquery.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{asset('dist/css/sweetalert2.min.css')}}">
     <link href="{{asset('dist/css/product-carousel.css')}}" rel="stylesheet">
+    @routes
+    <link href="{{asset('dist/css/carrito.css')}}" rel="stylesheet">
 @endsection
 @section('contenido-padding')
+@include('modules.modalCarrito')
 <section>
     <div class="jumbotron text-center mt-2">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 offset-md-3 px-0 my-3">
-                    <center>
-                        <div class="roundElementContainer squareSizeXXL">
-                        <img src="{{$business->getBusinessImg($business)}}" alt="">
-                        </div>
-                    </center>
+                    <div class="text-center roundElementContainer mh-100">
+                        <img class="img-fluid" src="{{$business->getBusinessImg($business)}}" alt="">
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <h1>{{$business->nombre}}</h1>
-                    <p>{{$business->descripcion}}</p>
+                    <h1 >{{$business->nombre}}</h1>
+                    <p class="h4">{{$business->descripcion}}</p>
                 </div>
             </div>
         </div>
@@ -83,12 +86,14 @@
     <div class="row px-5">
         @foreach($business->getProducts() as $product)
         <div class="col-6 col-md-2 mx-md-3">
-            <div class="card">
+            <div class="card" style="width: 14rem;">
                 <img class="card-img-top" src="{{$product->getProductImg()}}" height="150rem" width="auto">
                 <div class="card-body">
-                    <h5 class="card-title">{{$product->nombre}}</h5>
-                    <p class="card-text">{{$product->precio}} ó {{$product->puntos}} dines</p>
-                    <button href="producto/{{$product->id}}"  class="addToBuy btn btn-primary btn-goppBtn">Agregar</button>
+                    <a href="{{route('usuario.productos', ['producto' => $product])}}" class="text-black">
+                        <h5 class="card-title">{{$product->nombre}}</h5>
+                        <p class="card-text">{{$product->precio}} ó {{$product->puntos}} dines</p>
+                    </a>
+                    <button onclick="agregarCarrito({{$product->id}})" class="btn btn-primary btn-goppBtn">Agregar</button>
                 </div>
             </div>
         </div>
@@ -112,4 +117,10 @@
         </div>
     </div>
 </div>
+@include('modules.footerMenu')
+@endsection
+@section('scripts')
+    <script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
+    <script src="{{asset('dist/DataTables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('dist/js/carrito.js')}}"></script>
 @endsection

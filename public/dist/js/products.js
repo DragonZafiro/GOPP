@@ -9,6 +9,7 @@ var tableProduct = $('#products-table').DataTable({
         "lengthMenu": "<h5>Mostrar _MENU_ registros por página</h5>",
         "zeroRecords": "<h5>No se han encontrado productos o servicios</h5>",
         "info": "Mostrando página _PAGE_ de _PAGES_",
+        "processing": "Espere...",
         "infoEmpty": "<h4>Agrega un nuevo producto!</h4>",
         "infoFiltered": "(Filtrado de _MAX_ regitros)",
         "sSearch": "Buscar"
@@ -18,7 +19,7 @@ var tableProduct = $('#products-table').DataTable({
         {data:'foto',name:'foto',
             "render": function (data, type, full, meta) {
                 return "<img class ='squareSizeS squareElementContainer'src=\"" + data + "\" height=\"50\"/>";
-            }},
+        }},
         { data: 'nombre', name: 'nombre' },
         { data: 'codigo', name: 'codigo' },
         { data: 'tipo', name: 'tipo' },
@@ -119,9 +120,16 @@ $('#submitButton').click(function () {
         processData: false,
         dataType: 'json',
         success: function (data) {
+            if (save_method == 'add')
             swal(
                 '¡Hecho!',
                 'Se ha registrado el producto',
+                'success'
+            );
+            else
+            swal(
+                '¡Hecho!',
+                'Se ha actualizado el producto',
                 'success'
             );
             $('#myModal').modal('hide');

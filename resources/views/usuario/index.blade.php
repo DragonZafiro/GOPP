@@ -1,7 +1,6 @@
 <!-- Contenido General | PROMOS -->
 <!-- Plantilla -->
 @extends('general')
-
 <?php
 $user = App\User::find(auth()->user()->id);
 $businesses = App\Business::all();
@@ -12,10 +11,13 @@ $businesses = App\Business::all();
 <!-- Titulo -->
 @section('titulo', 'Promociones')
 @section('styles')
+    <link rel="stylesheet" href="{{asset('dist/DataTables/css/jquery.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{asset('dist/css/sweetalert2.min.css')}}">
     <link href="{{asset('dist/css/product-carousel.css')}}" rel="stylesheet">
     <link href="{{asset('dist/css/carrito.css')}}" rel="stylesheet">
     {{-- Animación Boletín --}}
     <link href="{{asset('dist/css/boletin.css')}}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 @endsection
 <!-- Contenido -->
 @section('contenido')
@@ -24,17 +26,17 @@ $businesses = App\Business::all();
 {{-- Carousel --}}
 @include('modules.carousel')
 <div class="container">
-    <div class="row  my-4 text-{{$user->loggedAs}}">
+    <div class="row  my-4 text-usuario txtXXL text-center">
         <div class="col-4 p-0">
-            <center style="font-size:5em;"><span class="align-self-center fa fa-rocket"></span></center>
+            <span class="align-self-center fa fa-rocket mh-100"></span>
             <p class="lead align-self-end text-center">Rápido</p>
         </div>
         <div class="col-4 p-0">
-            <center style="font-size:5em;"><span class="align-self-center far fa-life-ring"></span></center>
+            <span class="align-self-center far fa-life-ring mh-50"></span>
             <p class="lead align-self-end text-center">Seguro</p>
         </div>
         <div class="col-4 p-0">
-            <center style="font-size:5em;"><span class="align-self-center fas fa-star"></span></center>
+            <span class="align-self-center fas fa-star"></span>
             <p class="lead align-self-end text-center">Calidad</p>
         </div>
     </div>
@@ -69,7 +71,7 @@ $businesses = App\Business::all();
                     @endif
                     <div class="card card-product mx-auto d-block">
                         <div class="img-wrap">
-                            <a href="#" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
+                            <a onclick="agregarCarrito({{$promo->getProduct()->id}})" class="text-white top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
                             <a class="btn price-new top-right text-white bg-red rounded-circle">${{$promo->precio}}</a>
                             <a href="{{route('usuario.productos', ['producto' => $promo->getProduct()])}}"><img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
                         <h6 class="title text-dots">{{$promo->encabezado}}</h6></a>
@@ -119,7 +121,11 @@ $businesses = App\Business::all();
 {{-- ----------------------------------------------------- --}}
 @section('scripts')
 {{-- Animación de boletín --}}
+<script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
+<script src="{{asset('dist/DataTables/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('dist/js/boletin.js')}}"></script>
+@routes
+<script src="{{asset('dist/js/carrito.js')}}"></script>
 {{-- Movimiento de ofertas --}}
 @foreach($businesses as $business)
     @php

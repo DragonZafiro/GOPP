@@ -9,6 +9,7 @@ var tableProduct = $('#products-table').DataTable({
         "zeroRecords": "<h5>No se han encontrado boletines</h5>",
         "info": "Mostrando página _PAGE_ de _PAGES_",
         "infoEmpty": "<h4>Agrega un nuevo boletín!</h4>",
+        "processing": "Espere...",
         "infoFiltered": "(Filtrado de _MAX_ registros totales)",
         "sSearch": "Buscar"
     },

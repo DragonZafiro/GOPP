@@ -14,8 +14,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <a href="{{$enlace}}">
-                <div class="boletin">
+            <a href="{{$enlace}}" class="text-center">
+                <div class="boletin pr-5 pb-5">
                     <ul>
                         <li id="first-offer">
                             <h1><em>{{$titulo}}</em></h1>

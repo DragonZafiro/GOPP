@@ -7,7 +7,7 @@ Route::get('/about', 'WebController@about')->name('about');
 Route::post('/registro', 'UserController@store')->name('registro');
 // Login prueba 2
 Route::get('/test', function(){
-    return view('mapa');
+    return view('test');
 });
 // Logeo
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -38,6 +38,11 @@ Route::middleware(['session','usuario'])->group(function () {
     Route::get('/pedidos','UserController@MisPedidos')->name('usuario.pedidos');
     Route::get('/factura/usuario','UserController@factura')->name('usuario.factura');
     Route::get('/favor','UserController@favor')->name('usuario.favor');
+    Route::get('/productos_carrito','CarritoController@AllProduct')->name('carrito.todos');
+    Route::get('/carrito/{id}','CarritoController@agregar')->name('carrito.agregar');
+    Route::get('/carrito/{id}/borrar','CarritoController@borrar')->name('carrito.borrar');
+    Route::get('/carrito/{id}/incrementar','CarritoController@incrementar')->name('carrito.incrementar');
+    Route::get('/carrito/{id}/decrementar','CarritoController@decrementar')->name('carrito.decrementar');
     // Rutas general
     Route::get('/praemie/usuario','UserController@praemie')->name('usuario.praemie');
     Route::get('/about/usuario','UserController@acercade')->name('usuario.about');
