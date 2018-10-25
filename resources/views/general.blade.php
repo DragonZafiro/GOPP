@@ -71,7 +71,7 @@
         <!-- Material sidebar -->
         <aside id="sidebar" class="sidebar sidebar-stacked sidebar-inverse" role="navigation">
             <!-- Sidebar header -->
-            <div  class="sidebar-header bg-usuario">
+            <div  class="sidebar-header bg-{{$user->loggedAs}}">
                 <!-- Sidebar toggle button -->
                 <span class="iniciar-sesion sidebar-toggle top-right m-0">
                     <li class="fas fa-bars text-white txtM ml-3"></li>
