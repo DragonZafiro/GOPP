@@ -1,11 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\User;
 use App\Business;
 use App\CategoryModel;
+use App\Boletin;
+use App\Products;
 use Auth;
+
+
 class UserController extends Controller
 {
     public function store(Request $request)
@@ -73,8 +79,10 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        $temp_nick = $user->nick;
+
         $validator = $this->validate($request, [
-            'foto' => 'file|mimes:jpeg,gif,png',
+            'foto' => 'file|mimes:jpeg,png',
             'nombre' => 'required|max:255',
             'last_name' => 'required|max:255',
             'nick' => 'required|max:255|unique:users,nick,'.$user->id,
@@ -100,14 +108,6 @@ class UserController extends Controller
             'direccion_cp.required' => 'Debes escribir tu código postal',
         ]);
 
-        if ($request->file('foto')) {
-            $file = $request->file('foto');
-            $file_name = $user->id . '_' . $user->nick . '.' . $file->extension();
-            $file_path = 'dist/img/user/profile/';
-            if (Storage::exists($file_path, $file_name))
-                Storage::delete($file_path, $file_name);
-            $file->move($file_path, $file_name);
-        }
         if ($user->update([
             'name' => $request['nombre'],
             'last_name' => $request['last_name'],
@@ -120,8 +120,48 @@ class UserController extends Controller
             'direccion_cp' => $request['direccion_cp'],
             'direccion_estado' => $request['direccion_estado'],
             'pais' => $request['pais'],
-        ]))
+        ])){
+            if ($request->file('foto')) { // Modificar foto anterior
+                $file = $request->file('foto');
+                $file_name = $user->id . '_' . $user->nick . '.' . $file->extension();
+                $try_path = 'dist/img/user/profile/'.$user->id . '_' . $temp_nick . '.png';
+                $try_path2 = 'dist/img/user/profile/'.$user->id . '_' . $temp_nick . '.jpeg';
+                $file_path = 'dist/img/user/profile/';
+                if (Storage::disk('public')->exists($try_path)) // Borra foto anterior
+                    Storage::disk('public')->delete($try_path);
+                if (Storage::disk('public')->exists($try_path2)) // Borra foto anterior
+                    Storage::disk('public')->delete($try_path2);
+                $file->move($file_path, $file_name);
+            }
+            else{ // Actualizar foto con nuevo nick
+                if($temp_nick != $user->nick)
+                {
+                    $file_path = 'dist/img/user/profile/';
+                    $try_path = $file_path.$user->id . '_' . $temp_nick . '.png';
+                    $try_path2 = $file_path.$user->id . '_' . $temp_nick . '.jpeg';
+                    if (Storage::disk('public')->exists($try_path)){
+                        Storage::disk('public')->move($try_path, $file_path.$user->id.'_'.$user->nick.'.png');
+                    }
+                    if (Storage::disk('public')->exists($try_path2)){
+                        Storage::disk('public')->move($try_path2, $file_path.$user->id.'_'.$user->nick.'.jpeg');
+                    }
+                }
+            }
+            if(($user->empresa || $user->admin) && $temp_nick != $user->nick){
+                $businesses = $user->getBusiness();
+                foreach($businesses as $business)
+                {
+                    $file_path = 'dist/img/business/profile/';
+                    $try_path = $file_path.$business->id . "_" .$business->user_id. "_".$temp_nick.'.png';
+                    $try_path2 = $file_path.$business->id . "_" .$business->user_id. "_".$temp_nick.'.jpeg';
+                    if (Storage::disk('public')->exists($try_path)) // Borra foto anterior
+                        Storage::disk('public')->move($try_path, $file_path.$business->id . "_" .$business->user_id. "_".$user->nick.'.png');
+                    if (Storage::disk('public')->exists($try_path2)) // Borra foto anterior
+                        Storage::disk('public')->move($try_path2, $file_path.$business->id . "_" .$business->user_id. "_".$user->nick.'.jpeg');
+                }
+            }
             return response()->json(['sucess' => true, 'message' => "ok"]);
+        }
         $errors = $validator->errors();
         return response()->json([
             'success' => false,
@@ -132,22 +172,31 @@ class UserController extends Controller
         return User::find($id);
     }
     public function promos(){
-        return view('usuario.index');
+        $businesses = Business::all();
+        $boletin = Boletin::inRandomOrder()->get()->first();
+        return view('usuario.index',
+        ['businesses' => $businesses,
+        'boletin' => $boletin]);
     }
     public function categorias(){
         $categories = CategoryModel::all();
         return view('usuario.categorias', ['categories' => $categories]);
     }
     public function cuenta(){
-        return view('vistas.cuenta');
+        return view('vistas.cuenta',['user' => auth()->user()]);
     }
     public function puntos(){
-        return view('usuario.puntos');
+        $products = Products::where('puntos','>','0')->get();
+        return view('usuario.puntos',[
+            'products' => $products,
+            'user' => auth()->user(),
+        ]);
     }
     public function empresas(Request $request){
         $s = $request->query('s');
         $q = $request->query('categoria');
         $category = CategoryModel::find($q);
+        $categories = CategoryModel::all();
 		// Query and paginate result
         if($category == null){
             $business = Business::where('descripcion', 'like', "%$s%")
@@ -158,7 +207,11 @@ class UserController extends Controller
             ->orWhere('nombre', 'like', "%$s%");
             $business = $q->where('category_id', '=', $category->id);
         }
-        return view('usuario.empresas', ['business' => $business, 's' => $s , 'category' => $category ]);
+        return view('usuario.empresas',
+        ['business' => $business,
+        's' => $s ,
+        'category' => $category,
+        'categories' => $categories]);
     }
     public function mapa(){
         return view('usuario.mapa');
@@ -184,10 +237,10 @@ class UserController extends Controller
     public function favor(){
         return view('usuario.favor');
     }
-    public function mostrarEmpresa($id)
-    {
-        return view('vistas.empresa')
-            ->with('business', Business::find($id));
+    public function mostrarEmpresa($id){
+        return view('vistas.empresa',[
+            'business' => Business::find($id),
+            'user' => auth()->user()]);
     }
     // Cierra el perfil y regresa a la selección de perfiles
     public function logout(){

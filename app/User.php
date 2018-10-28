@@ -21,18 +21,9 @@ class User extends Authenticatable
     ];
     public function getUserImage(){
         $user = Auth::user();
-        if($user->loggedAs == 'empresa')
-        {
-            $business = Business::find($user->loggedAsBusiness);
-            $user_profile = glob("dist/img/business/profile/".$business->id."_".$user->id."_".$user->nick.".*[jpg,png,jpeg,gif]");
-            if($user_profile == null) return asset("dist/img/user/profile/default.jpg");
-            else return asset($user_profile[0]);
-        }
-        else {
-            $user_profile = glob("dist/img/user/profile/".$user->id."_".$user->nick.".*[jpg,png,jpeg,gif]");
-            if($user_profile == null) return asset("dist/img/user/profile/default.jpg");
-            else return asset($user_profile[0]);
-        }
+        $user_profile = glob("dist/img/user/profile/".$user->id."_".$user->nick.".*[jpg,png,jpeg,gif]");
+        if($user_profile == null) return asset("dist/img/user/profile/default.jpg");
+        else return asset($user_profile[0]);
     }
     public function getCoverImage(){
         $user = Auth::user();
@@ -42,5 +33,8 @@ class User extends Authenticatable
     }
     public function getBusinessSelected(){
         return Business::find(Auth::user()->loggedAsBusiness);
+    }
+    public function getBusiness(){
+        return Business::where('user_id', $this->id)->get();
     }
 }

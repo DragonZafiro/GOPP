@@ -1,14 +1,10 @@
 @extends('general')
-@php
-    $user = App\User::find(auth()->user()->id);
-    $promos = App\Business::all();
-@endphp
 <!-- Titulo -->
 @section('titulo', 'Praemie')
 <!-- Contenido -->
 @section('contenido-padding')
-	<div class="col-4">
-		    <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para ti... </h2>
+	<div class="col-6">
+		    <h2>Para ti... </h2>
 	</div>
 	<div class="container text-center">
 		<h5 class="txtXXL text-praemie">GOPP Praemie</h5>

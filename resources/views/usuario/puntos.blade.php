@@ -1,8 +1,4 @@
 @extends('general')
-@php
-    $user = auth()->user();
-    $products = App\Products::where('puntos','>','0')->get();
-@endphp
 <!-- Titulo -->
 @section('titulo', 'Mis Puntos')
 <!-- Fondo Negro -->
@@ -13,14 +9,14 @@
 <div class="container">
     <div class="row">
         <h4 class="display-4">
-            Hola {{$user->name}}. Tienes <span class="badge badge-{{$user->loggedAs}} text-white">{{$user->puntos}}</span> dines.
+            Hola {{$user->name}}. Tienes <span class="badge badge-usuario text-white">{{$user->puntos}}</span> dines.
         </h4>
     </div>
     <div class="row">
-        <button class="btn btn-goppBtn btn-{{$user->loggedAs}}" data-toggle="modal" data-target="#ingresarCodigo">Obtener mas dines</button>
+        <button class="btn btn-goppBtn btn-usuario" data-toggle="modal" data-target="#ingresarCodigo">Obtener mas dines</button>
     </div>
     <div class="row my-4">
-        <h4 class="display-4 text-{{$user->loggedAs}}">Vamos a canjearlos!</h4>
+        <h4 class="display-4 text-usuario">Vamos a canjearlos!</h4>
     </div>
     <div class="row">
         <ul class="nav nav-pills nav-pills-white mb-3" id="pills-tab" role="tablist">
@@ -50,7 +46,7 @@
                 <div class="container">
                     <div class="col-md-6">
                         <img class="float-left rounded-circle mr-4" style="height:60px; width:60px;" src="{{asset('dist/img/user/profile/default.jpg')}}" />
-                        <h5 class="float-right">Descuento por <span class="badge badge-{{$user->loggedAs}} ">5</span> <span class="fas fa-ticket-alt text-dines"></span></h5>
+                        <h5 class="float-right">Descuento por <span class="badge badge-usuario ">5</span> <span class="fas fa-ticket-alt text-dines"></span></h5>
                     </div>
                 </div>
             </div>
@@ -61,7 +57,7 @@
     @slot('modal_action','#')
     @slot('nombre_modal','ingresarCodigo')
     @slot('modal_title')
-        <p class="text-{{$user->loggedAs}}">Ingresa un código para obtener dines</p>
+        <p class="text-usuario">Ingresa un código para obtener dines</p>
     @endslot
     @slot('modal_content')
     <div class="input-group mb-3">

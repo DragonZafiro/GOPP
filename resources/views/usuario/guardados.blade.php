@@ -1,10 +1,6 @@
 <!-- Contenido General | PROMOS -->
 <!-- Plantilla -->
 @extends('general')
-@php
-    $user = App\User::find(auth()->user()->id);
-    $promos = App\Business::all();
-@endphp
 <!-- Titulo -->
 @section('titulo', 'Guardados')
 <!-- Contenido -->

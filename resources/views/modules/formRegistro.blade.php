@@ -49,7 +49,7 @@
                             <label for="custom-file"><span class="fas fa-image"></span> Foto</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="file" name="foto" lang="es">
-                                <label class="custom-file-label" for="file">Seleccionar...</label>
+                                <label class="custom-file-label text-truncate" for="file">Seleccionar...</label>
                             </div>
                             <span class="help-block foto-error text-danger"></span>
                         </div>

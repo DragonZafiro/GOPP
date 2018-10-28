@@ -1,12 +1,9 @@
-<!-- Contenido General | MIS NEGOCIOS -->
-<!-- Plantilla -->
+{{-- Mis Negocios --}}
 @extends('general')
-@php $user = App\User::find(auth()->user()->id); @endphp
 <!-- Titulo -->
 @section('titulo', 'Mis Negocios')
 <!-- Contenido -->
 @section('contenido')
-
 @endsection
 @section('contenido-padding')
 <div class="container">

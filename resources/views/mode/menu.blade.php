@@ -1,5 +1,5 @@
 <!-- Usuario -->
-@if(auth()->user()->usuario || auth()->user()->admin)
+@if($user->usuario || $user->admin)
 <form method="POST" action="{{ url('/validar') }}">
     @csrf
     {{ method_field('PUT') }}
@@ -8,7 +8,7 @@
 </form>
 @endif
 <!-- Empresa -->
-@if(auth()->user()->empresa || auth()->user()->admin)
+@if($user->empresa || $user->admin)
 <form method="POST" action="{{ url('/validar') }}">
     @csrf
     {{ method_field('PUT') }}
@@ -17,7 +17,7 @@
 </form>
 @endif
 <!-- Afiliador -->
-@if(auth()->user()->afiliador || auth()->user()->admin)
+@if($user->afiliador || $user->admin)
 <form method="POST" action="{{ url('/validar') }}">
     @csrf
     {{ method_field('PUT') }}
@@ -26,7 +26,7 @@
 </form>
 @endif
 <!-- Repartidor -->
-@if(auth()->user()->repartidor || auth()->user()->admin)
+@if($user->repartidor || $user->admin)
 <form method="POST" action="{{ url('/validar') }}">
     @csrf
     {{ method_field('PUT') }}

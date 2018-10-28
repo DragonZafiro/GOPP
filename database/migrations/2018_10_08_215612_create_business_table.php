@@ -25,10 +25,10 @@ class CreateBusinessTable extends Migration
             $table->string('telefono');
             $table->string('email');
             $table->string('web');
-            $table->string('whatsapp')->nullable()->default('NO');
-            $table->string('facebook')->nullable()->default('NO');
-            $table->string('twitter')->nullable()->default('NO');
-            $table->string('instagram')->nullable()->default('NO');
+            $table->string('whatsapp')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
             $table->string('password');
             $table->timestamps();
         });

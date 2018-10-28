@@ -1,7 +1,4 @@
 @extends('general')
-@php
-    $user = App\User::find(auth()->user()->id);
-@endphp
 <!-- Titulo -->
 @section('titulo', 'Acerca de')
 @section('contenido-padding')

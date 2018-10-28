@@ -1,9 +1,7 @@
 <!-- Contenido General | EMPRESAS -->
 <!-- Plantilla -->
 @extends('general')
-@php
-$categories = App\CategoryModel::all();
-@endphp
+<?php $categories = App\CategoryModel::all(); ?>
 @section('boostrap')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 @endsection
@@ -64,9 +62,7 @@ $categories = App\CategoryModel::all();
         $categories = App\CategoryModel::find($category);
     ?>
     @foreach ($categories as $categoria)
-    @php
-        $businesses = $categoria->getBusiness();
-    @endphp
+    <?php $businesses = $categoria->getBusiness(); ?>
     @if($businesses->first() != null)
     <br>
     <div class="card-oferta-container container-fluid">
@@ -177,9 +173,7 @@ $categories = App\CategoryModel::all();
 @section('scripts')
 {{-- TODOS LOS NEGOCIOS--}}
 @foreach($categories as $categoria)
-    @php
-        $businesses = $categoria->getBusiness();
-    @endphp
+    <?php $businesses = $categoria->getBusiness(); ?>
     @if ($businesses->first() != null)
         <script>
                 $('#carousel-{{$categoria->id}}').on('slide.bs.carousel', function (e) {

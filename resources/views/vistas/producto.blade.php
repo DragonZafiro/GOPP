@@ -78,8 +78,6 @@
             <!-- col.// -->
         </div>
         <!-- row.// -->
-
-
 </div>
 <!--container.//-->
 @endsection

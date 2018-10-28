@@ -11,22 +11,13 @@
     <link href="{{asset('dist/css/product-carousel.css')}}" rel="stylesheet">
 @endsection
 @section('contenido-padding')
-
-<?php
-$user = App\User::find(auth()->user()->id);
-$neg = App\Business::find($user->loggedAsBusiness);
-$category = App\CategoryModel::find($neg->category_id);
-?>
-    @php
-        $businesses = $category->getBusiness();
-    @endphp
     @if ($businesses->first() != null)
     <br>
     <div class="card-oferta-container container-fluid">
+        <h3>Estos son todos los negocios dentro de la categoría <span class="text-empresa">{{$category->nombre}}</span></h3>
         <div class="row col-lg-12">
             <div class="col-md-6">
                 <img class="float-left rounded-circle mr-4" style="height:60px" src="" />
-                <h3>Estos son todos los negocios dentro de la categoría<span class="text-empresa">{{$category->nombre}}</span></h3>
             </div>
         </div>
         <div id="carousel-business" class="carousel slide" data-ride="carousel" data-interval="9000">
@@ -42,7 +33,7 @@ $category = App\CategoryModel::find($neg->category_id);
                         @endif
                         <div class="img-wrap">
                             <div class="roundElementContainer  text-center">
-                                <img src="{{$buss->getBusinessImg($buss)}}" style="height:210px;width:90%">
+                                <img src="{{$buss->getBusinessImg()}}" style="height:210px;width:90%">
                             </div>
                         </div>
                         <figcaption class="info-wrap">
@@ -53,7 +44,7 @@ $category = App\CategoryModel::find($neg->category_id);
                                 <p>
                                     {{$buss->descripcion}}
                                 </p>
-                                <p><a class="btn btn-goppBtn btn-primary btn-m" href="{{route('usuario.empresa', ['business' => $buss])}}" role="button">Ir a la página del negocio</a></p>
+                                <p><a class="btn btn-goppBtn btn-primary btn-m" href="{{route('empresa.empresa', ['business' => $buss])}}" role="button">Ir a la página del negocio</a></p>
                             </div>
                         </figcaption>
                     </div>

@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 @endsection
 @section('styles')
-    <link rel="stylesheet" href="{{asset('dist/DataTables/css/jquery.dataTables.min.css')}}">
-    <link rel="stylesheet" href="{{asset('dist/css/sweetalert2.min.css')}}">
     <link href="{{asset('dist/css/product-carousel.css')}}" rel="stylesheet">
-    @routes
-    <link href="{{asset('dist/css/carrito.css')}}" rel="stylesheet">
+    @if($user->loggedAs == 'usuario')
+        @routes
+        <link rel="stylesheet" href="{{asset('dist/DataTables/css/jquery.dataTables.min.css')}}">
+        <link rel="stylesheet" href="{{asset('dist/css/sweetalert2.min.css')}}">
+        <link href="{{asset('dist/css/carrito.css')}}" rel="stylesheet">
+    @endif
 @endsection
 @section('contenido-padding')
 @include('modules.modalCarrito')
@@ -21,7 +23,7 @@
             <div class="row">
                 <div class="col-md-6 offset-md-3 px-0 my-3">
                     <div class="text-center roundElementContainer mh-100">
-                        <img class="img-fluid" src="{{$business->getBusinessImg($business)}}" alt="">
+                        <img class="img-fluid" src="{{$business->getBusinessImg()}}" alt="">
                     </div>
                 </div>
             </div>
@@ -50,9 +52,11 @@
             @foreach($promos as $promo)
             <div class="card card-product mx-auto d-block" style="height:300px; width:250px;">
                 <div class="img-wrap">
-                    <a href="#" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
+                    @if($user->loggedAs == 'usuario')
+                        <a onclick="agregarCarrito({{$promo->getProduct()->id}})" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
+                    @endif
                     <a class="btn price-new top-right text-white bg-red rounded-circle">${{$promo->precio}}</a>
-                    <a href="{{route('usuario.productos', ['producto' => $promo->getProduct()])}}"><img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
+                    <a href="{{route($user->loggedAs.'.productos', ['producto' => $promo->getProduct()])}}"><img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
                     <h6 class="title text-dots">{{$promo->encabezado}}</h6></a>
                 </div>
                 <div class="info-wrap">
@@ -89,11 +93,13 @@
             <div class="card" style="width: 14rem;">
                 <img class="card-img-top" src="{{$product->getProductImg()}}" height="150rem" width="auto">
                 <div class="card-body">
-                    <a href="{{route('usuario.productos', ['producto' => $product])}}" class="text-black">
+                    <a href="{{url('producto', ['producto' => $product])}}" class="text-black">
                         <h5 class="card-title">{{$product->nombre}}</h5>
                         <p class="card-text">{{$product->precio}} ó {{$product->puntos}} dines</p>
                     </a>
-                    <button onclick="agregarCarrito({{$product->id}})" class="btn btn-primary btn-goppBtn">Agregar</button>
+                    @if($user->loggedAs == 'usuario')
+                        <button onclick="agregarCarrito({{$product->id}})" class="btn btn-primary btn-goppBtn">Agregar</button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -117,10 +123,14 @@
         </div>
     </div>
 </div>
-@include('modules.footerMenu')
+@if($user->loggedAs == 'usuario')
+    @include('modules.footerMenu')
+@endif
 @endsection
 @section('scripts')
-    <script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
-    <script src="{{asset('dist/DataTables/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('dist/js/carrito.js')}}"></script>
+    @if($user->loggedAs == 'usuario')
+        <script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
+        <script src="{{asset('dist/DataTables/js/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('dist/js/carrito.js')}}"></script>
+    @endif
 @endsection

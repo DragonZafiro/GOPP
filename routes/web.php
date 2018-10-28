@@ -13,9 +13,9 @@ Route::get('/test', function(){
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::put('/validar','WebController@validar')->name('validar');
 // Modo de ingreso
 Auth::routes(['verify' => true]);
-Route::put('/validar','WebController@validar')->name('validar');
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/{id}/edit', 'UserController@edit');
     Route::put('/user/{id}/edit', 'UserController@update');
@@ -30,7 +30,7 @@ Route::middleware(['session','usuario'])->group(function () {
         ->where('s', '[a-z]+');
     Route::get('/negocio/{empresa}','UserController@mostrarEmpresa')->name('usuario.empresa');
     Route::get('/mapa','UserController@mapa')->name('usuario.mapa');
-    Route::get('/producto/{producto}','ProductController@show')->name('usuario.productos');
+    Route::get('/producto/{id}','ProductController@show')->name('usuario.productos');
     Route::get('/notificaciones/usuario','UserController@notificaciones')->name('usuario.notificaciones');
     Route::get('/guardados','UserController@guardados')->name('usuario.guardados');
     Route::get('/loquequieras','UserController@loquequieras')->name('usuario.loquequieras');
@@ -44,18 +44,18 @@ Route::middleware(['session','usuario'])->group(function () {
     Route::get('/carrito/{id}/incrementar','CarritoController@incrementar')->name('carrito.incrementar');
     Route::get('/carrito/{id}/decrementar','CarritoController@decrementar')->name('carrito.decrementar');
     // Rutas general
-    Route::get('/praemie/usuario','UserController@praemie')->name('usuario.praemie');
-    Route::get('/about/usuario','UserController@acercade')->name('usuario.about');
     Route::get('/cuenta/usuario','UserController@cuenta')->name('usuario.cuenta');
     Route::get('/switch/usuario','UserController@logout')->name('usuario.switch');
 });
 Route::middleware(['session','empresa'])->group(function () {
     // Rutas para empresa --------------------------------------
-    Route::get('/empresa','BusinessController@inicio')->name('empresa.inicio');
-
+    Route::get('/categoria','BusinessController@inicio')->name('empresa.inicio');
+    Route::get('/business/{id}','BusinessController@edit')->name('empresa.edit');
+    Route::put('/business/{id}','BusinessController@update')->name('empresa.update');
     Route::resource('/productos', 'ProductController');
     Route::resource('/ofertas', 'PromosController');
     Route::resource('/boletines', 'BoletinController');
+    Route::get('/producto/{producto}','ProductController@show')->name('empresa.productos');
     Route::get('servicios_productos', 'ProductController@AllProduct')->name('productos.todos');
     Route::get('ofertas_promociones', 'PromosController@AllPromos')->name('ofertas.todos');
     Route::get('boletin_todos', 'BoletinController@AllBoletin')->name('boletines.todos');

@@ -1,9 +1,6 @@
 <!-- Contenido General | PROMOS -->
 <!-- Plantilla -->
 @extends('general')
-@php
-    $businesses = App\Business::all();
-@endphp
 @section('boostrap')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 @endsection
@@ -11,6 +8,8 @@
 @section('titulo', 'Inicio')
 @section('styles')
     <link href="{{asset('dist/css/product-carousel.css')}}" rel="stylesheet">
+    <link href="{{asset('dist/css/boletin.css')}}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 @endsection
 <!-- Contenido -->
 @section('contenido')
@@ -32,9 +31,6 @@
 
 <!-- Boletín -->
 @component('modules.formBoletin')
-    @php
-        $boletin = App\Boletin::inRandomOrder()->get()->first();
-    @endphp
     @slot('titulo',$boletin->titulo)
     @slot('contenido',$boletin->contenido)
     @slot('enlace',$boletin->enlace)
@@ -61,15 +57,13 @@
 
 @section('contenido-padding')
 @foreach ($businesses as $business)
-    @php
-        $promos = $business->getBusinessPromos();
-    @endphp
-    @if ($promos->first() != null)
+@if ($business->getBusinessPromos()->first() != null)
+<?php $promos = $business->getBusinessPromos() ?>
 <br>
 <div class="card-oferta-container container-fluid">
     <div class="row col-lg-12">
         <div class="col-md-6">
-            <img class="float-left rounded-circle mr-4" style="height:60px" src="{{$business->getBusinessImg($business)}}" />
+            <img class="float-left rounded-circle mr-4" style="height:60px" src="{{$business->getBusinessImg()}}" />
             <h3 class="text-usuario">{{$business->nombre}}</h3>
             <h5>Con {{$promos->count()}} oferta(s) para ti</h5>
         </div>
@@ -90,8 +84,10 @@
                         <div class="img-wrap">
                             <a href="#" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
                             <a class="btn price-new top-right text-white bg-red rounded-circle">${{$promo->precio}}</a>
-                            <a href="{{route('usuario.productos', ['producto' => $promo->getProduct()])}}"><img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
-                        <h6 class="title text-dots">{{$promo->encabezado}}</h6></a>
+                            <a href="#">
+                                <img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
+                                <h6 class="title text-dots">{{$promo->encabezado}}</h6>
+                            </a>
                         </div>
                         <div class="info-wrap">
                             <h6 class="title text-dots text-truncate" style="height:20px;max-width: 100%;">{{$promo->descripcion}}</h6>
@@ -124,6 +120,7 @@
 @endforeach
 @endsection
 @section('scripts')
+<script src="{{asset('dist/js/boletin.js')}}"></script>
 {{-- Funciones Invitado --}}
 <script>
 $('.modalRegistro').on('show.bs.modal', function () {

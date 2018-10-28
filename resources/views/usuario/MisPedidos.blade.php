@@ -1,8 +1,4 @@
 @extends('general')
-@php
-    $user = App\User::find(auth()->user()->id);
-    $promos = App\Business::all();
-@endphp
 <!-- Titulo -->
 @section('titulo', 'Mis Pedidos')
 <!-- Contenido -->

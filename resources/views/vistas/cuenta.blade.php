@@ -1,13 +1,5 @@
 <!-- Plantilla -->
 @extends('general')
-@php
-$user = auth()->user();
-$user_profile = $user->getUserImage();
-if($user->loggedAs == 'empresa'){
-    $business = $user->getBusinessSelected();
-    $category = $business->category()->first();
-}
-@endphp
 <!-- Titulo -->
 @section('titulo', 'Mi Cuenta')
 <!-- Fondo Negro -->
@@ -22,23 +14,23 @@ if($user->loggedAs == 'empresa'){
 <!-- Contenido -->
 @section('contenido')
 {{-- Boletines --}}
-@component('modules.formBoletin')
-    @php
-        $boletin = App\Boletin::inRandomOrder()->get()->first();
-    @endphp
-    @slot('titulo',$boletin->titulo)
-    @slot('contenido',$boletin->contenido)
-    @slot('enlace',$boletin->enlace)
-    @slot('imagen',$boletin->getBoletinImg())
-@endcomponent
+@if($user->loggedAs == 'empresa')
+    @component('modules.formBoletin')
+        @slot('titulo',$boletin->titulo)
+        @slot('contenido',$boletin->contenido)
+        @slot('enlace',$boletin->enlace)
+        @slot('imagen',$boletin->getBoletinImg())
+    @endcomponent
+@endif
 @endsection
 @section('contenido-padding')
     @include('modules.formRegistro')
+    @include('modules.formEmpresa')
     <!-- Columnas de información -->
     @component('modules.info-cuenta')
         <!-- Cuenta de usuario general -->
         @slot('section1')
-            <div  class="roundElementContainer squareSizeL"><img src="{{$user_profile}}" alt=""></div>
+            <div  class="roundElementContainer squareSizeL"><img src="{{$user->getUserImage()}}" alt=""></div>
             <h1 class="display-4 text-{{$user->loggedAs}}">Usuario</h1>
             <div class=" col-sm-12 lead text-white">Nombre: {{$user->name}}</div>
             <div class=" col-sm-12 lead text-white">Apodo: {{$user->nick}}</div>
@@ -72,15 +64,16 @@ if($user->loggedAs == 'empresa'){
                 </div>
             <!-- Empresa -->
             @elseif($user->loggedAs == 'empresa')
+                <div  class="roundElementContainer squareSizeL"><img src="{{$business->getBusinessImg()}}" alt=""></div>
                 <h1 class="display-4 text-empresa">Información de tu Empresa</h1>
                 <span class="lead text-white">Nombre: {{$business->nombre}}</span><br>
                 <span class="lead text-white">Categoría: {{$category->nombre}}</span><br>
                 <span class="lead text-white">Dirección: {{$business->direccion}}</span><br>
                 <span class="lead text-white">Descripción: {{$business->descripcion}}</span><br>
-                <span class="lead text-white">Télefono: {{$business->telefono}}</span><br>
+                <span class="lead text-white">Teléfono: {{$business->telefono}}</span><br>
                 <span class="lead text-white">E-mail: {{$business->email}}</span><br>
                 <span class="lead text-white">Página web: {{$business->web}}</span><br><br>
-                <p class="lead text-white"><button class="btn btn-danger btn-goppBtn" data-toggle="modal" data-target="#editarCuenta">Editar datos</button></p>
+                <p class="lead text-white"><button class="btn btn-danger btn-goppBtn" onclick="editEmpresa({{$business->id}})">Editar datos</button></p>
                 <div class="row p-3">
                     <p class="text-white lead">Puedes hacer crecer tu equipo generando un código de afiliador:</p>
                 </div>
@@ -272,7 +265,7 @@ if($user->loggedAs == 'empresa'){
     @component('modules.info-cuenta')
         <!-- Cuenta de usuario general -->
         @slot('section1')
-            <h1 class="display-4 text-truncate text-{{$user->loggedAs}}">Conviertete en Más</h1>
+            <h1 class="display-4 text-truncate text-{{$user->loggedAs}}">Conviértete en Más</h1>
             <p class="lead text-white">En GOPP puedes ser más que un usuario, checa esto:</p>
             <div class="row">
                 <div class="col-md-6 offset-md-3">
@@ -294,6 +287,7 @@ if($user->loggedAs == 'empresa'){
 @section('scripts')
     <script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
     <script src="{{asset("dist/js/users.js ")}}"></script>
+    <script src="{{asset("dist/js/empresa.js ")}}"></script>
     <script>
     $("#demoModal1").on( "click", function() {
             $('#demoBoletinModal').modal('hide');

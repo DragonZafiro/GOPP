@@ -1,14 +1,7 @@
 @extends('general')
-@php
-    $user = App\User::find(auth()->user()->id);
-@endphp
 <!-- Titulo -->
 @section('titulo', 'Lanzar Boletín')
 <!-- Contenido -->
-@section('scripts')
-    <script src="{{asset('dist/DataTables/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('dist/js/products.js')}}" type="text/javascript"></script>
-@endsection
 @section('contenido-padding')
 <div class="container text-center">
     <h5 class="txtXXL text-usuario">Lanzar Boletín</h5>

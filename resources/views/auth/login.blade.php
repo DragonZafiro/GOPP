@@ -114,15 +114,10 @@
 		<script src="{{asset("dist/js/jquery.min.js")}}" type="text/javascript"></script>
 		<script src="{{asset("dist/js/popper.min.js")}}" type="text/javascript"></script>
 		<script src="{{asset("dist/js/bootstrap-material-design.min.js")}}" type="text/javascript"></script>
-        <script src="{{asset("dist/js/moment.min.js")}}"></script>
         <script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
         <script src="{{asset("dist/js/users.js ")}}"></script>
 		<!--  Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
 		<script src="{{asset("dist/js/bootstrap-datetimepicker.js")}}" type="text/javascript"></script>
-		<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-		<script src="{{asset("dist/js/nouislider.min.js")}}" type="text/javascript"></script>
-		<!--  Plugin for Sharrre btn -->
-		<script src="{{asset("dist/js/jquery.sharrre.js")}}" type="text/javascript"></script>
 		<!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
 		<script src="{{asset("dist/js/material-kit.js?v=2.0.4")}}" type="text/javascript"></script>
 	</body>

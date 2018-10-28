@@ -1,7 +1,4 @@
 @extends('general')
-@php
-    $user = App\User::find(auth()->user()->id);
-@endphp
 @section('titulo', 'Mis Boletines')
 <!-- Estilos -->
 

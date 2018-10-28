@@ -12,7 +12,7 @@ class AffiliateController extends Controller
         return view('afiliador.index');
     }
     public function cuenta(){
-        return view('vistas.cuenta');
+        return view('vistas.cuenta',['user' => auth()->user()]);
     }
     public function notificaciones(){
         return view('vistas.notificaciones');

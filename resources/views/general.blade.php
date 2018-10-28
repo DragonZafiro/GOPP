@@ -10,8 +10,8 @@
         <title>GOPP - @yield('titulo')</title>
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-         <!-- Bootstrap 4.7 -->
-         @section('boostrap')
+        <!-- Bootstrap 4.7 -->
+        @section('boostrap')
             <link rel="stylesheet" href="{{asset('dist/css/bootstrap.min.css')}}">
         @show
         <!-- GOPP -->
@@ -71,7 +71,11 @@
         <!-- Material sidebar -->
         <aside id="sidebar" class="sidebar sidebar-stacked sidebar-inverse" role="navigation">
             <!-- Sidebar header -->
+            @if(auth()->guest())
+            <div class="sidebar-header bg-usuario">
+            @else
             <div  class="sidebar-header bg-{{$user->loggedAs}}">
+            @endif
                 <!-- Sidebar toggle button -->
                 <span class="iniciar-sesion sidebar-toggle top-right m-0">
                     <li class="fas fa-bars text-white txtM ml-3"></li>
@@ -141,6 +145,14 @@
             var $nav = $(".bg-black-header");
             $nav.toggleClass('scrolled', $(this).scrollTop() > 60);
         });
+        });
+    </script>
+    <script type="application/javascript">
+        $('input[type="file"]').change(function(event){
+            var fileName = event.target.files[0].name;
+            if (event.target.nextElementSibling != null){
+                event.target.nextElementSibling.innerText=fileName;
+            }
         });
     </script>
     @yield('scripts')

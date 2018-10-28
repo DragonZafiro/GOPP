@@ -1,7 +1,4 @@
 @extends('general')
-@php
-    $user = App\User::find(auth()->user()->id);
-@endphp
 <!-- Titulo -->
 @section('titulo', 'Factura')
 @section('bg-color','bg-white')
@@ -9,7 +6,7 @@
 				<div class="containier text-center">
 					<h5 class="txtXXL text-usuario">Mi factura</h5>
 					<p>
-					Sabemos lo que necesitas, nadie se escapa de los impuestos verdad, 
+					Sabemos lo que necesitas, nadie se escapa de los impuestos verdad,
 					<br> danos tus datos y te enviaremos tu factura.
 					</p>
 				</div>
@@ -54,14 +51,10 @@
 					    <td><label for="basic-url" class="my-3 lead">Correo electrónico</label></td>
 					    <td><input type="text" class="form-control" id="" name="" placeholder="Correo electrónico" required> </td>
 					</tr>
-					
+
 				</table>
 				<button type="submit" class="btn btn-primary">Enviar</button>
 			</div>
 			</form>
 			</center>
-
-								
-					
-
-	@endsection
+@endsection

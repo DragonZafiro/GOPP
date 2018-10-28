@@ -1,10 +1,6 @@
 <!-- Contenido General | PROMOS -->
 <!-- Plantilla -->
 @extends('general')
-<?php
-$user = App\User::find(auth()->user()->id);
-$businesses = App\Business::all();
-?>
 @section('boostrap')
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 @endsection
@@ -45,15 +41,13 @@ $businesses = App\Business::all();
 
 @section('contenido-padding')
 @foreach ($businesses as $business)
-    @php
-        $promos = $business->getBusinessPromos();
-    @endphp
+    <?php $promos = $business->getBusinessPromos(); ?>
     @if ($promos->first() != null)
 <br>
 <div class="card-oferta-container container-fluid">
     <div class="row col-lg-12">
         <div class="col-md-6">
-            <img class="float-left rounded-circle mr-4" style="height:60px" src="{{$business->getBusinessImg($business)}}" />
+            <img class="float-left rounded-circle mr-4" style="height:60px" src="{{$business->getBusinessImg()}}" />
             <h3 class="text-usuario">{{$business->nombre}}</h3>
             <h5>Con {{$promos->count()}} oferta(s) para ti</h5>
         </div>
@@ -108,9 +102,6 @@ $businesses = App\Business::all();
     @include('modules.footerMenu')
     <!-- Boletín -->
 @component('modules.formBoletin')
-    @php
-        $boletin = App\Boletin::inRandomOrder()->get()->first();
-    @endphp
     @slot('titulo',$boletin->titulo)
     @slot('contenido',$boletin->contenido)
     @slot('enlace',$boletin->enlace)

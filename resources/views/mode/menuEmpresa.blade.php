@@ -1,12 +1,5 @@
-@php
-    $user = auth()->user();
-    $businesses = DB::table('business')->where('user_id',$user->id)->get();
-@endphp
+<?php $businesses = App\Business::where('user_id', $user->id)->get(); ?>
 @foreach ($businesses as $business)
-    @php
-    $img = glob("dist/img/business/profile/".$business->id."_".$user->id."_".$user->nick.".*[jpg,png,jpeg,gif]");
-    if($img == null) $img[0] = "dist/img/user/profile/default.jpg";
-    @endphp
     <form method="POST" action="{{ url('/validar')}}">
         @csrf
         {{ method_field('PUT') }}
@@ -15,7 +8,7 @@
         <button type="submit" class='btn btn-outline-dark btn-block'>
             <div class='row m-1'>
                 <div class='squareElementContainer squareSizeS'>
-                    <img src="{{$img[0]}}">
+                    <img src="{{$business->getBusinessImg()}}">
                 </div>
                 <div class='align-self-center h5 p-2 text-white'>
                     {{$business->nombre}}
