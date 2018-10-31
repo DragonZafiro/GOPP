@@ -52,6 +52,8 @@ Route::middleware(['session','empresa'])->group(function () {
     Route::get('/categoria','BusinessController@inicio')->name('empresa.inicio');
     Route::get('/business/{id}','BusinessController@edit')->name('empresa.edit');
     Route::put('/business/{id}','BusinessController@update')->name('empresa.update');
+    Route::get('/business/{id}/codigo','BusinessController@codigo')->name('empresa.codigo');
+    Route::delete('/business/{id}/desafiliar','BusinessController@desafiliar')->name('empresa.desafiliar');
     Route::resource('/productos', 'ProductController');
     Route::resource('/ofertas', 'PromosController');
     Route::resource('/boletines', 'BoletinController');
@@ -71,7 +73,9 @@ Route::middleware(['session','afiliador'])->group(function () {
     // Rutas para afiliador
     Route::get('/afiliador','AffiliateController@inicio')->name('afiliador.inicio');
     Route::get('/saldo', 'AffiliateController@saldo')->name('afiliador.saldo');
+    Route::get('/neg/{id}','UserController@mostrarEmpresa')->name('afiliador.empresa');
     Route::get('/notificaciones/afiliador','AffiliateController@notificaciones')->name('afiliador.notificaciones');
+    Route::post('/afiliar','AffiliateController@afiliar')->name('afiliador.afiliar');
     // Rutas general
     Route::get('/cuenta/afiliador','AffiliateController@cuenta')->name('afiliador.cuenta');
     Route::get('/switch/afiliador','AffiliateController@logout')->name('afiliador.switch');

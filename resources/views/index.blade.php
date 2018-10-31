@@ -68,6 +68,7 @@
             <h5>Con {{$promos->count()}} oferta(s) para ti</h5>
         </div>
     </div>
+    @if($promos->count() > 4)
     <div id="carousel-{{$business->id}}" class="carousel slide" data-ride="carousel" data-interval="9000">
         <!-- Wrapper for slides -->
         <div class="carousel-inner principal_{{$business->id}} row w-100 mx-auto" role="listbox">
@@ -115,6 +116,35 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+        @else
+        <div class="row w-100 mx-auto">
+            @foreach ($promos as $promo)
+            <div class="card card-product mx-auto d-block col-sm-6 col-md-3">
+                <div class="img-wrap">
+                    <a href="#" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
+                    <a class="btn price-new top-right text-white bg-red rounded-circle">${{$promo->precio}}</a>
+                    <a href="#">
+                        <img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
+                        <h6 class="title text-dots">{{$promo->encabezado}}</h6>
+                    </a>
+                </div>
+                <div class="info-wrap">
+                    <h6 class="title text-dots text-truncate" style="height:20px;max-width: 100%;">{{$promo->descripcion}}</h6>
+                    <h6 class="title text-dots">Hasta: {{$promo->fecha_fin}}</h6>
+                    <div class="action-wrap">
+
+                        <div class="price-wrap h5">
+                            <span class="price-new">${{$promo->precio}}</span>
+                            <del class="price-old">${{$promo->getProduct()->precio}}</del>
+                        </div>
+                        <!-- price-wrap.// -->
+                    </div>
+                    <!-- action-wrap -->
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
     </div>
 @endif
 @endforeach

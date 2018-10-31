@@ -29,6 +29,7 @@ class CreateBusinessTable extends Migration
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
+            $table->string('codigo_afiliador')->nullable();
             $table->string('password');
             $table->timestamps();
         });

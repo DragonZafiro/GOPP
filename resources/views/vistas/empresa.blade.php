@@ -36,6 +36,7 @@
         </div>
     </div>
 </section>
+@unless($user->loggedAs == 'afiliador')
 {{-- OFERTAS --}}
 <section>
     <?php $promos = $business->getBusinessPromos(); ?>
@@ -53,11 +54,13 @@
             <div class="card card-product mx-auto d-block" style="height:300px; width:250px;">
                 <div class="img-wrap">
                     @if($user->loggedAs == 'usuario')
-                        <a onclick="agregarCarrito({{$promo->getProduct()->id}})" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
+                        <a onclick="agregarCarrito({{$promo->getProduct()->id}})" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m text-white">Agregar</a>
                     @endif
                     <a class="btn price-new top-right text-white bg-red rounded-circle">${{$promo->precio}}</a>
-                    <a href="{{route($user->loggedAs.'.productos', ['producto' => $promo->getProduct()])}}"><img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
-                    <h6 class="title text-dots">{{$promo->encabezado}}</h6></a>
+                    <a href="{{route($user->loggedAs.'.productos', ['producto' => $promo->getProduct()])}}">
+                        <img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
+                        <h6 class="title text-dots">{{$promo->encabezado}}</h6>
+                    </a>
                 </div>
                 <div class="info-wrap">
                     <h6 class="title text-dots text-truncate" style="height:20px;max-width: 100%;">{{$promo->descripcion}}</h6>
@@ -87,9 +90,9 @@
             </div>
         </div>
     </div>
-    <div class="row px-5">
+    <div class="row px-5 col-12 col-md-12 col-xs-12">
         @foreach($business->getProducts() as $product)
-        <div class="col-6 col-md-2 mx-md-3">
+        <div class="card card-product col-xs-12 col-sm-6 col-md-3 mx-auto d-block" style="height:300px; width:250px;">
             <div class="card" style="width: 14rem;">
                 <img class="card-img-top" src="{{$product->getProductImg()}}" height="150rem" width="auto">
                 <div class="card-body">
@@ -107,6 +110,7 @@
     </div>
 </section>
 <hr>
+@endunless
 <hr>
 {{-- CONTÁCTO --}}
 <div class="section" style="margin-bottom: 40px;">

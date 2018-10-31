@@ -1,6 +1,5 @@
 <!-- Plantilla -->
 @extends('general')
-@php $user = App\User::find(auth()->user()->id); @endphp
 <!-- Titulo -->
 @section('titulo', 'Mis Productos y Servicios')
 <!-- Estilos -->

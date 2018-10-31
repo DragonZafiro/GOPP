@@ -5,6 +5,7 @@ use App\User;
 use App\Business;
 use App\CategoryModel;
 use App\Boletin;
+use App\Afiliador;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -25,12 +26,13 @@ class BusinessController extends Controller
         $boletin = Boletin::inRandomOrder()->get()->first();
         $user = auth()->user();
         $business = Business::find($user->loggedAsBusiness);
-
+        $afiliador = Afiliador::where('business_id', $business->id)->get();
         return view('vistas.cuenta',[
             'user' => $user,
             'boletin' => $boletin,
             'business' => $business,
-            'category' => $business->category
+            'category' => $business->category,
+            'afiliador' => $afiliador,
         ]);
     }
     public function notificaciones(){
@@ -94,6 +96,35 @@ class BusinessController extends Controller
         return response()->json([
             'success' => false,
             'message' => json_decode($errors)
+        ], 422);
+    }
+    public function codigo($id){
+        $business = Business::find($id);
+        $afiliador = Afiliador::where('business_id', $business->id)->get();
+        if($afiliador->count() > 0) return "error";
+        if(auth()->user() == $business->user){
+            if($business->codigo_afiliador == null)
+                $business->codigo_afiliador = md5(uniqid(rand(), true));
+            $business->save();
+            return $business;
+        }
+        return "error";
+    }
+    public function desafiliar($id){
+        $business = Business::find($id);
+        $afiliador = Afiliador::where('business_id', $business->id)->get();
+        if ($afiliador->count() == 0) return "error";
+        if (auth()->user() == $business->user) {
+            if ($business->codigo_afiliador != null)
+            {
+                $business->codigo_afiliador = null;
+                $business->save();
+                return Afiliador::destroy($afiliador->first()->id);
+            }
+        }
+        return response()->json([
+            'success' => false,
+            'message' => "no"
         ], 422);
     }
     // Cierra el perfil y regresa a la selección de perfiles

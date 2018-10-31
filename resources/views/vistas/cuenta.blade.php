@@ -25,7 +25,6 @@
 @endsection
 @section('contenido-padding')
     @include('modules.formRegistro')
-    @include('modules.formEmpresa')
     <!-- Columnas de información -->
     @component('modules.info-cuenta')
         <!-- Cuenta de usuario general -->
@@ -64,6 +63,8 @@
                 </div>
             <!-- Empresa -->
             @elseif($user->loggedAs == 'empresa')
+                @include('modules.formEmpresa')
+                @include('modules.formCodigo')
                 <div  class="roundElementContainer squareSizeL"><img src="{{$business->getBusinessImg()}}" alt=""></div>
                 <h1 class="display-4 text-empresa">Información de tu Empresa</h1>
                 <span class="lead text-white">Nombre: {{$business->nombre}}</span><br>
@@ -74,66 +75,79 @@
                 <span class="lead text-white">E-mail: {{$business->email}}</span><br>
                 <span class="lead text-white">Página web: {{$business->web}}</span><br><br>
                 <p class="lead text-white"><button class="btn btn-danger btn-goppBtn" onclick="editEmpresa({{$business->id}})">Editar datos</button></p>
-                <div class="row p-3">
-                    <p class="text-white lead">Puedes hacer crecer tu equipo generando un código de afiliador:</p>
-                </div>
-                <a href="#" class="btn btn-goppBtn btn-empresa btn-lg">Generar código</a>
+                @if($afiliador->count() == 0)
+                    <div class="row p-3">
+                        <p class="text-white lead">Puedes hacer crecer tu equipo generando un código de afiliador:</p>
+                    </div>
+                    <a onclick="generarCodigoEmpresa({{$business->id}})" class="btn btn-goppBtn btn-empresa btn-lg">Generar código</a>
+                @else
+                    <span class="lead">Actualmente estás afiliado con: {{$afiliador->first()->getUser()->name}}</span>
+                    <div class="row">
+                        <div class="col-md-6 mt-1">
+                            <a onclick="desafiliar({{$business->id}})" class="btn btn-goppBtn btn-empresa">Desafiliar</a>
+                        </div>
+                    </div>
+                @endif
             <!-- Afiliador -->
             @elseif($user->loggedAs == 'afiliador')
-                <h1 class="display-4 text-{{$user->loggedAs}}">Tu Equipo</h1>
+                <h1 class="display-4 text-afiliador">Tu Equipo</h1>
                 <p class="lead text-white">Como afiliador, tú generas ganancia por cada empresa y repartidor que esté dentro de tu equipo.</p>
-                <p class="lead text-white">Actualmente estás generando <span class="badge badge-afiliador">$n</span> diarios.</p>
+                <p class="lead text-white">Actualmente estás generando <span class="badge badge-afiliador">${{$user->getAfiliador()->count()}}</span> diarios.</p>
                 <div class="accordion" id="accordionAfiliado">
                     <div class="card my-2 noBg">
                         <div class="card-header my-0 py-0" id="headingOne">
                             <button class="btn btn-link btn-lg text-white my-0 py-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                6 Empresas <span class='fas fa-chevron-circle-down text-afiliador' ></span>
+                                {{$user->getAfiliadorBusiness()->count()}} Empresa(s)<span class='fas fa-chevron-circle-down text-afiliador'></span>
                             </button>
                         </div>
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionAfiliado">
-                            <div class="card-body text-white">
-                                <a href="#" class="row my-2">
-                                    <div class="col-xs-1">
+                            @foreach($user->getAfiliadorBusiness() as $afiliador)
+                            <div class="card-body p-1 text-white">
+                                <a class="row col-md-12">
+                                    <div class="col-xs-1 col-1">
                                         <div class="squareElementContainer squareSizeXS">
-                                            <img src="{{asset('dist/img/user/profile/default.jpg')}}">
+                                            <img src="{{$afiliador->getBusiness()->getBusinessImg()}}">
                                         </div>
                                     </div>
-                                    <div class="col-xs-1 mx-2 text-white">
-                                        Walmart
+                                    <div class="col-xs-9 col-9 text-white">
+                                        {{$afiliador->getBusiness()->nombre}}
                                     </div>
                                 </a>
-                                <a href='#' class='btn btn-goppBtn btn-afiliador btn-sm txtWhite'>Mostrar más...</a>
                             </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="card my-2 noBg">
                         <div class="card-header my-0 py-0" id="headingTwo">
                             <button class="btn btn-link btn-lg text-white my-0 py-0" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
-                                3 Repartidores <span class='fas fa-chevron-circle-down text-afiliador' ></span>
+                                {{$user->getAfiliadorRepartidor()->count()}} Repartidor(es)<span class='fas fa-chevron-circle-down text-afiliador' ></span>
                             </button>
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionAfiliado">
-                            <div class="card-body text-white">
-                                <a href="#" class="row my-2">
-                                    <div class="col-xs-1">
+                            @foreach($user->getAfiliadorRepartidor() as $afiliador)
+                            <div class="card-body p-1 text-white">
+                                <a class="row col-md-12">
+                                    <div class="col-xs-1 col-1">
                                         <div class="squareElementContainer squareSizeXS">
-                                            <img src="{{asset('dist/img/user/profile/default.jpg')}}">
+                                            <img src="{{$afiliador->getRepartidor()->getUserImage()}}">
                                         </div>
                                     </div>
-                                    <div class="col-xs-1 mx-2 text-white">
-                                        Nick xd
+                                    <div class="col-xs-9 col-9 text-white">
+                                        {{$afiliador->getRepartidor()->name}}
                                     </div>
                                 </a>
-                                <a href='#' class='btn btn-goppBtn btn-afiliador btn-sm txtWhite'>Mostrar más...</a>
                             </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="row p-3">
-                        <p class="text-white lead">Puedes hacer crecer tu equipo generando un código de afiliador</p></div>
-                    <div class="row">
-                        <div class="col-md-2 offset-md-3">
-                            <a href="#" class="btn btn-goppBtn btn-afiliador btn-lg">Generar código</a>
-                        </div>
+                        <p class="text-white lead">Agrega repartidores o negocios a tu equipo ingresando su código de afiliador:</p>
+                            <form action="{{route('afiliador.afiliar')}}" class="form" method="post">
+                            @csrf
+                            <input type="text" name="codigo" value="{{old('codigo')}}">
+                            <button type="submit" class="btn btn-goppBtn btn-afiliador btn-sm">Confirmar código</button>
+                            <p class="text-red">{{ $errors->first('codigo') }}</p>
+                        </form>
                     </div>
                 </div>
             @elseif($user->loggedAs == 'repartidor')
@@ -286,8 +300,9 @@
 @endsection
 @section('scripts')
     <script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
-    <script src="{{asset("dist/js/users.js ")}}"></script>
-    <script src="{{asset("dist/js/empresa.js ")}}"></script>
+    <script src="{{asset("dist/js/users.js")}}"></script>
+    <script src="{{asset("dist/js/clipboard.min.js")}}"></script>
+    <script src="{{asset("dist/js/empresa.js")}}"></script>
     <script>
     $("#demoModal1").on( "click", function() {
             $('#demoBoletinModal').modal('hide');

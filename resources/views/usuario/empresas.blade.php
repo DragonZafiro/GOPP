@@ -79,14 +79,14 @@
                 <?php $i = 0; ?>
                 @foreach ($businesses as $buss)
                 @if($i != 1)
-                    <div class="carousel-item items_{{$categoria->id}} col-md-3 active">
+                    <div class="carousel-item items_{{$categoria->id}} col-xs-12 col-12 col-md-3 active">
                     <?php $i = 1;?>
                     @else
-                    <div class="carousel-item items_{{$categoria->id}} col-md-3">
+                    <div class="carousel-item items_{{$categoria->id}} col-xs-12 col-12 col-md-3">
                         @endif
                         <div class="img-wrap">
-                            <div class="roundElementContainer  text-center">
-                                <img src="{{$buss->getBusinessImg($buss)}}" style="height:210px;width:90%">
+                            <div class="text-center">
+                                <img class="img-fluid rounded-circle" src="{{$buss->getBusinessImg($buss)}}" >
                             </div>
                         </div>
                         <figcaption class="info-wrap">
@@ -130,10 +130,10 @@
             <?php $i = 0; ?>
             @foreach ($business->get() as $negocio)
                 @if($i != 1)
-                <div class="carousel-item items_business col-md-3 active">
+                <div class="carousel-item items_business col-xs-12 col-12 col-md-3 active">
                 <?php $i = 1;?>
                 @else
-                <div class="carousel-item items_business col-md-3">
+                <div class="carousel-item items_business col-xs-12 col-12 col-md-3">
                 @endif
                     <div class="img-wrap">
                         <div class="roundElementContainer  text-center">
