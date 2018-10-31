@@ -9,6 +9,8 @@ use App\Business;
 use App\CategoryModel;
 use App\Boletin;
 use App\Products;
+use App\FavoriteProducts;
+use App\FavoriteBusiness;
 use Auth;
 
 
@@ -213,6 +215,56 @@ class UserController extends Controller
         'category' => $category,
         'categories' => $categories]);
     }
+    public function favorito($id){
+        if(Products::find($id)){
+            $user = auth()->user();
+            $favorito = FavoriteProducts::where('user_id', $user->id)
+                ->where('product_id', $id);
+            if($favorito->count() == 0){
+                $fav = FavoriteProducts::create([
+                    'user_id' => $user->id,
+                    'product_id' => $id
+                ]);
+                return response()->json([
+                    'success' => true
+                ]);
+            }
+            else{
+                if($favorito->delete())
+                return response()->json([
+                    'success' => true
+                ]);
+            }
+        }
+        return response()->json([
+            'success' => false
+        ]);
+    }
+    public function favoritoEmpresa($id){
+        if(Business::find($id)){
+            $user = auth()->user();
+            $favorito = FavoriteBusiness::where('user_id', $user->id)
+                ->where('business_id', $id);
+            if($favorito->count() == 0){
+                $fav = FavoriteBusiness::create([
+                    'user_id' => $user->id,
+                    'business_id' => $id
+                ]);
+                return response()->json([
+                    'success' => true
+                ]);
+            }
+            else{
+                if($favorito->delete())
+                return response()->json([
+                    'success' => true
+                ]);
+            }
+        }
+        return response()->json([
+            'success' => false
+        ]);
+    }
     public function mapa(){
         return view('usuario.mapa');
     }
@@ -220,7 +272,11 @@ class UserController extends Controller
         return view('vistas.notificaciones');
     }
     public function guardados(){
-        return view('usuario.guardados');
+        $products = FavoriteProducts::where('user_id', auth()->user()->id)->get();
+        $businesses = FavoriteBusiness::where('user_id', auth()->user()->id)->get();
+        return view('usuario.guardados', [
+            'products' => $products,
+            'businesses' => $businesses]);
     }
     public function loquequieras(){
         return view('usuario.loquequieras');

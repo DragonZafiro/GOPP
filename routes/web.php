@@ -30,7 +30,7 @@ Route::middleware(['session','usuario'])->group(function () {
         ->where('s', '[a-z]+');
     Route::get('/negocio/{empresa}','UserController@mostrarEmpresa')->name('usuario.empresa');
     Route::get('/mapa','UserController@mapa')->name('usuario.mapa');
-    Route::get('/producto/{id}','ProductController@show')->name('usuario.productos');
+    Route::get('/productos/{id}','ProductController@show')->name('usuario.productos');
     Route::get('/notificaciones/usuario','UserController@notificaciones')->name('usuario.notificaciones');
     Route::get('/guardados','UserController@guardados')->name('usuario.guardados');
     Route::get('/loquequieras','UserController@loquequieras')->name('usuario.loquequieras');
@@ -38,6 +38,8 @@ Route::middleware(['session','usuario'])->group(function () {
     Route::get('/pedidos','UserController@MisPedidos')->name('usuario.pedidos');
     Route::get('/factura/usuario','UserController@factura')->name('usuario.factura');
     Route::get('/favor','UserController@favor')->name('usuario.favor');
+    Route::post('/favorito/{id}','UserController@favorito')->name('usuario.favorito');
+    Route::post('/favorito_empresa/{id}','UserController@favoritoEmpresa')->name('usuario.favorito_empresa');
     Route::get('/productos_carrito','CarritoController@AllProduct')->name('carrito.todos');
     Route::get('/carrito/{id}','CarritoController@agregar')->name('carrito.agregar');
     Route::get('/carrito/{id}/borrar','CarritoController@borrar')->name('carrito.borrar');
@@ -57,7 +59,8 @@ Route::middleware(['session','empresa'])->group(function () {
     Route::resource('/productos', 'ProductController');
     Route::resource('/ofertas', 'PromosController');
     Route::resource('/boletines', 'BoletinController');
-    Route::get('/producto/{producto}','ProductController@show')->name('empresa.productos');
+    Route::get('/mi_empresa','BusinessController@miempresa')->name('empresa.miempresa');
+    Route::get('/producto/{id}','ProductController@show')->name('empresa.productos');
     Route::get('servicios_productos', 'ProductController@AllProduct')->name('productos.todos');
     Route::get('ofertas_promociones', 'PromosController@AllPromos')->name('ofertas.todos');
     Route::get('boletin_todos', 'BoletinController@AllBoletin')->name('boletines.todos');

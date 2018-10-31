@@ -1,8 +1,5 @@
-<?php
-    if(!auth()->guest())
-        $user = auth()->user()
-?>
 @if(!auth()->guest())
+<?php $user = auth()->user() ?>
     @if($user->loggedAs == 'usuario')
         <li><a href="{{route('usuario.promos')}}"><span class="fa fa-tags"></span>Promos</a></li>
         <li><a href="{{route('usuario.categorias')}}"><span class="fas fa-thumbtack"></span>Categorías</a></li>
@@ -14,7 +11,7 @@
     @elseif($user->loggedAs == 'empresa')
         <li><a href="{{route('empresa.inicio')}}"><span class="fas fa-thumbtack"></span>Mi Categoría</a></li>
         <li><a href="#"><span class="fa fa-tags"></span>Ofertas</a></li>
-        <li><a href="#"><span class="fas fa-user-tie"></span>Mi Empresa</a></li>
+        <li><a href="{{route('empresa.miempresa')}}"><span class="fas fa-user-tie"></span>Mi Empresa</a></li>
         <li><a href="#"><span class="fas fa-history"></span>Historial</a></li>
         <li><a href="{{route('empresa.notificaciones')}}"><span class="fas fa-envelope"></span>Notificaciones</a></li>
     @elseif($user->loggedAs == 'afiliador')

@@ -3,13 +3,11 @@
 @extends('general')
 <?php $categories = App\CategoryModel::all(); ?>
 @section('boostrap')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('dist/css/product-carousel.css')}}">
 @endsection
 <!-- Titulo -->
 @section('titulo', 'Empresas')
-@section('styles')
-    <link href="{{asset('dist/css/product-carousel.css')}}" rel="stylesheet">
-@endsection
 <!-- Contenido -->
 <!-- Barra de búsqueda -->
 @section('contenido')
@@ -73,20 +71,32 @@
                 <h5>{{$businesses->count()}} Negocio(s) disponibles.</h5>
             </div>
         </div>
+        @if($business->count() > 4)
         <div id="carousel-{{$categoria->id}}" class="carousel slide" data-ride="carousel" data-interval="9000">
             <!-- Wrapper for slides -->
             <div class="carousel-inner principal_{{$categoria->id}} row w-100 mx-auto" role="listbox">
                 <?php $i = 0; ?>
                 @foreach ($businesses as $buss)
                 @if($i != 1)
-                    <div class="carousel-item items_{{$categoria->id}} col-xs-12 col-12 col-md-3 active">
+                    <div class="carousel-item items_{{$categoria->id}} col-md-3 active">
                     <?php $i = 1;?>
                     @else
-                    <div class="carousel-item items_{{$categoria->id}} col-xs-12 col-12 col-md-3">
+                    <div class="carousel-item items_{{$categoria->id}} col-md-3">
                         @endif
+                        <span class="favorite top-right">
+                            @if(auth()->user()->checkBusinessFaved($buss->id))
+                            <button id="favorite" class="fav faved" onclick="addBusinessFavorite({{$buss->id}})">
+                            @else
+                            <button id="favorite" class="fav" onclick="addBusinessFavorite({{$buss->id}})">
+                            @endif
+                                <span class="fas fa-star">
+                                    <span class="fas fa-star"></span>
+                                </span>
+                            </button>
+                        </span>
                         <div class="img-wrap">
                             <div class="text-center">
-                                <img class="img-fluid rounded-circle" src="{{$buss->getBusinessImg($buss)}}" >
+                                <img class="img-fluid rounded-circle" src="{{$buss->getBusinessImg()}}" >
                             </div>
                         </div>
                         <figcaption class="info-wrap">
@@ -112,6 +122,41 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+        @else
+        <div class="row w-100 mx-auto">
+            @foreach ($businesses as $buss)
+            <div class="col-sm-6 col-md-3">
+                <span class="favorite top-right">
+                    @if(auth()->user()->checkBusinessFaved($buss->id))
+                    <button id="favorite" class="fav faved" onclick="addBusinessFavorite({{$buss->id}})">
+                    @else
+                    <button id="favorite" class="fav" onclick="addBusinessFavorite({{$buss->id}})">
+                    @endif
+                        <span class="fas fa-star">
+                            <span class="fas fa-star"></span>
+                        </span>
+                    </button>
+                </span>
+                <div class="img-wrap">
+                    <div class="text-center">
+                        <img class="img-fluid rounded-circle" src="{{$buss->getBusinessImg($buss)}}" >
+                    </div>
+                </div>
+                <figcaption class="info-wrap">
+                    <div class="col-lg-19 text-center">
+                        <h3>
+                            {{$buss->nombre}}
+                        </h3>
+                        <p>
+                            {{$buss->descripcion}}
+                        </p>
+                        <p><a class="btn btn-goppBtn btn-primary btn-m" href="{{route('usuario.empresa', ['business' => $buss])}}" role="button">Ir a la página del negocio</a></p>
+                    </div>
+                </figcaption>
+            </div>
+            @endforeach
+        </div>
+        @endif
     </div>
     @endif
 @endforeach
@@ -124,6 +169,7 @@
             <h5>{{$business->count()}} Negocio(s) encontrados. Resultados de {{$s}}:</h5>
         </div>
     </div>
+    @if($business->count() > 4)
     <div id="carousel-business" class="carousel slide" data-ride="carousel" data-interval="9000">
         <!-- Wrapper for slides -->
         <div class="carousel-inner principal_business row w-100 mx-auto" role="listbox">
@@ -135,9 +181,20 @@
                 @else
                 <div class="carousel-item items_business col-xs-12 col-12 col-md-3">
                 @endif
+                <span class="favorite top-right">
+                    @if(auth()->user()->checkBusinessFaved($negocio->id))
+                    <button id="favorite" class="fav faved" onclick="addBusinessFavorite({{$negocio->id}})">
+                    @else
+                    <button id="favorite" class="fav" onclick="addBusinessFavorite({{$negocio->id}})">
+                    @endif
+                        <span class="fas fa-star">
+                            <span class="fas fa-star"></span>
+                        </span>
+                    </button>
+                </span>
                     <div class="img-wrap">
                         <div class="roundElementContainer  text-center">
-                            <img src="{{$negocio->getBusinessImg($negocio)}}" style="height:210px;width:90%">
+                            <img src="{{$negocio->getBusinessImg()}}" style="height:210px;width:90%">
                         </div>
                     </div>
                     <figcaption class="info-wrap">
@@ -164,6 +221,37 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+    @else
+    <div class="row w-100 mx-auto">
+        @foreach ($business->get() as $negocio)
+        <div class="col-sm-6 col-md-3">
+            <span class="favorite top-right">
+                <button id="favorite" class="fav" onclick="addBusinessFavorite({{$negocio->id}})">
+                    <span class="fas fa-star">
+                        <span class="fas fa-star"></span>
+                    </span>
+                </button>
+            </span>
+            <div class="img-wrap">
+                <div class="text-center">
+                    <img class="img-fluid rounded-circle" src="{{$negocio->getBusinessImg()}}">
+                </div>
+            </div>
+            <figcaption class="info-wrap">
+                <div class="col-lg-19 text-center">
+                    <h3>
+                        {{$negocio->nombre}}
+                    </h3>
+                    <p>
+                        {{$negocio->descripcion}}
+                    </p>
+                    <p><a class="btn btn-goppBtn btn-primary btn-m" href="{{route('usuario.empresa', ['business' => $negocio])}}" role="button">Ir a la página del negocio</a></p>
+                </div>
+            </figcaption>
+        </div>
+        @endforeach
+    </div>
+    @endif
 </div>
 @else
     <h5 class="text-center text-usuario"> No se han encontrado resultados de {{$s}}</h5>
@@ -171,6 +259,8 @@
 @endsection
 {{-- SCRIPTS --}}
 @section('scripts')
+@routes
+<script src="{{asset('dist/js/favoritos.js')}}"></script>
 {{-- TODOS LOS NEGOCIOS--}}
 @foreach($categories as $categoria)
     <?php $businesses = $categoria->getBusiness(); ?>

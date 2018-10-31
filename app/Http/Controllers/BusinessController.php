@@ -35,6 +35,12 @@ class BusinessController extends Controller
             'afiliador' => $afiliador,
         ]);
     }
+    public function miempresa(){
+        $user = auth()->user();
+        return view('vistas.empresa',[
+            'business' => Business::find($user->loggedAsBusiness),
+            'user' => $user]);
+    }
     public function notificaciones(){
         return view('vistas.notificaciones');
     }

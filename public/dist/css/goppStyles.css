@@ -1025,7 +1025,8 @@ body {
 	position: fixed;
 	width: 100%;
 	top: 90%;
-	left: 0;
+    left: 0;
+    z-index: 2;
 }
 
 .nav-footNav span {

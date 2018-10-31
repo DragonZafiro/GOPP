@@ -20,6 +20,7 @@
                 <img class="float-left rounded-circle mr-4" style="height:60px" src="" />
             </div>
         </div>
+        @if($businesses->count() > 4)
         <div id="carousel-business" class="carousel slide" data-ride="carousel" data-interval="9000">
             <!-- Wrapper for slides -->
             <div class="carousel-inner principal_business row w-100 mx-auto" role="listbox">
@@ -59,6 +60,31 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+        @else
+        <div class="row w-100 mx-auto">
+            @foreach ($businesses as $buss)
+            <div class="col-sm-6 col-md-3">
+                <div class="img-wrap">
+                    <div class="text-center">
+                        <img class="img-fluid rounded-circle" src="{{$buss->getBusinessImg()}}">
+                    </div>
+                </div>
+                <figcaption class="info-wrap">
+                    <div class="col-lg-19 text-center">
+                        <h3>
+                            {{$buss->nombre}}
+                        </h3>
+                        <p>
+                            {{$buss->descripcion}}
+                        </p>
+                        <p><a class="btn btn-goppBtn btn-primary btn-m" href="{{route('empresa.empresa', ['business' => $buss])}}"
+                                role="button">Ir a la página del negocio</a></p>
+                    </div>
+                </figcaption>
+            </div>
+            @endforeach
+        </div>
+        @endif
     </div>
     @endif
 @endsection

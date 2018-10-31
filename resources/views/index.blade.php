@@ -80,28 +80,25 @@
                 @else
                 <div class="carousel-item items_{{$business->id}} col-md-3">
                     @endif
-
-                    <div class="card card-product mx-auto d-block">
-                        <div class="img-wrap">
-                            <a href="#" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
-                            <a class="btn price-new top-right text-white bg-red rounded-circle">${{$promo->precio}}</a>
+                    <div class="list col-sm-12">
+                        <div class="product-card">
+                            <span class="oferta">
+                                <p>${{$promo->precio}}</p>
+                            </span>
+                            <span class="tag">
+                                <span class="fas fa-shopping-cart" aria-hidden="true"></span>
+                            </span>
                             <a href="#">
-                                <img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
-                                <h6 class="title text-dots">{{$promo->encabezado}}</h6>
+                                <h2 >{{$promo->encabezado}}</h2>
+                                <h4 >{{$promo->descripcion}}</h4>
+                                <h4>Hasta: {{$promo->fecha_fin}}</h4>
+                                <figure>
+                                    <img src="{{$promo->getProduct()->getProductImg()}}" alt="product" />
+                                </figure>
                             </a>
-                        </div>
-                        <div class="info-wrap">
-                            <h6 class="title text-dots text-truncate" style="height:20px;max-width: 100%;">{{$promo->descripcion}}</h6>
-                            <h6 class="title text-dots">Hasta: {{$promo->fecha_fin}}</h6>
-                            <div class="action-wrap">
-
-                                <div class="price-wrap h5">
-                                    <span class="price-new">${{$promo->precio}}</span>
-                                    <del class="price-old">${{$promo->getProduct()->precio}}</del>
-                                </div>
-                                <!-- price-wrap.// -->
-                            </div>
-                            <!-- action-wrap -->
+                            <span class="price">
+                                ${{$promo->precio}} <del class="text-black">${{$promo->getProduct()->precio}}</del>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -119,27 +116,25 @@
         @else
         <div class="row w-100 mx-auto">
             @foreach ($promos as $promo)
-            <div class="card card-product mx-auto d-block col-sm-6 col-md-3">
-                <div class="img-wrap">
-                    <a href="#" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m">Agregar</a>
-                    <a class="btn price-new top-right text-white bg-red rounded-circle">${{$promo->precio}}</a>
+            <div class="list col-xs-12 col-sm-6 col-md-3 mx-auto d-block">
+                <div class="product-card">
+                    <span class="oferta">
+                        <p>${{$promo->precio}}</p>
+                    </span>
+                    <span class="tag">
+                        <span class="fas fa-shopping-cart" aria-hidden="true"></span>
+                    </span>
                     <a href="#">
-                        <img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
-                        <h6 class="title text-dots">{{$promo->encabezado}}</h6>
+                        <h2 >{{$promo->encabezado}}</h2>
+                        <h4 >{{$promo->descripcion}}</h4>
+                        <h4>Hasta: {{$promo->fecha_fin}}</h4>
+                        <figure>
+                            <img src="{{$promo->getProduct()->getProductImg()}}" alt="product" />
+                        </figure>
                     </a>
-                </div>
-                <div class="info-wrap">
-                    <h6 class="title text-dots text-truncate" style="height:20px;max-width: 100%;">{{$promo->descripcion}}</h6>
-                    <h6 class="title text-dots">Hasta: {{$promo->fecha_fin}}</h6>
-                    <div class="action-wrap">
-
-                        <div class="price-wrap h5">
-                            <span class="price-new">${{$promo->precio}}</span>
-                            <del class="price-old">${{$promo->getProduct()->precio}}</del>
-                        </div>
-                        <!-- price-wrap.// -->
-                    </div>
-                    <!-- action-wrap -->
+                    <span class="price">
+                        ${{$promo->precio}} <del class="text-black">${{$promo->getProduct()->precio}}</del>
+                    </span>
                 </div>
             </div>
             @endforeach

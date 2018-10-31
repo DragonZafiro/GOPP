@@ -9,7 +9,6 @@
 @section('styles')
     <link href="{{asset('dist/css/product-carousel.css')}}" rel="stylesheet">
     @if($user->loggedAs == 'usuario')
-        @routes
         <link rel="stylesheet" href="{{asset('dist/DataTables/css/jquery.dataTables.min.css')}}">
         <link rel="stylesheet" href="{{asset('dist/css/sweetalert2.min.css')}}">
         <link href="{{asset('dist/css/carrito.css')}}" rel="stylesheet">
@@ -51,29 +50,27 @@
         </div>
         <div class="row px-5">
             @foreach($promos as $promo)
-            <div class="card card-product mx-auto d-block" style="height:300px; width:250px;">
-                <div class="img-wrap">
+            <div class="list col-xs-12 col-sm-6 col-md-3 mx-auto d-block">
+                <div class="product-card">
+                    <span class="oferta">
+                        <p>${{$promo->precio}}</p>
+                    </span>
                     @if($user->loggedAs == 'usuario')
-                        <a onclick="agregarCarrito({{$promo->getProduct()->id}})" class="top-left btn btn-primary btnAgregarOferta btn-goppBtn btn-m text-white">Agregar</a>
+                    <span class="tag">
+                        <span onclick="agregarCarrito({{$promo->getProduct()->id}})" class="fas fa-shopping-cart" aria-hidden="true"></span>
+                    </span>
                     @endif
-                    <a class="btn price-new top-right text-white bg-red rounded-circle">${{$promo->precio}}</a>
                     <a href="{{route($user->loggedAs.'.productos', ['producto' => $promo->getProduct()])}}">
-                        <img src="{{$promo->getProduct()->getProductImg()}}" class="img-fluid" style="width:100%">
-                        <h6 class="title text-dots">{{$promo->encabezado}}</h6>
+                        <h2 >{{$promo->encabezado}}</h2>
+                        <h4 >{{$promo->descripcion}}</h4>
+                        <h4>Hasta: {{$promo->fecha_fin}}</h4>
+                        <figure>
+                            <img src="{{$promo->getProduct()->getProductImg()}}" alt="product" />
+                        </figure>
                     </a>
-                </div>
-                <div class="info-wrap">
-                    <h6 class="title text-dots text-truncate" style="height:20px;max-width: 100%;">{{$promo->descripcion}}</h6>
-                    <h6 class="title text-dots">Hasta: {{$promo->fecha_fin}}</h6>
-                    <div class="action-wrap">
-
-                        <div class="price-wrap h5">
-                            <span class="price-new">${{$promo->precio}}</span>
-                            <del class="price-old">${{$promo->getProduct()->precio}}</del>
-                        </div>
-                        <!-- price-wrap.// -->
-                    </div>
-                    <!-- action-wrap -->
+                    <span class="price">
+                        ${{$promo->precio}} <del class="text-black">${{$promo->getProduct()->precio}}</del>
+                    </span>
                 </div>
             </div>
             @endforeach
@@ -92,18 +89,35 @@
     </div>
     <div class="row px-5 col-12 col-md-12 col-xs-12">
         @foreach($business->getProducts() as $product)
-        <div class="card card-product col-xs-12 col-sm-6 col-md-3 mx-auto d-block" style="height:300px; width:250px;">
-            <div class="card" style="width: 14rem;">
-                <img class="card-img-top" src="{{$product->getProductImg()}}" height="150rem" width="auto">
-                <div class="card-body">
-                    <a href="{{url('producto', ['producto' => $product])}}" class="text-black">
-                        <h5 class="card-title">{{$product->nombre}}</h5>
-                        <p class="card-text">{{$product->precio}} ó {{$product->puntos}} dines</p>
-                    </a>
-                    @if($user->loggedAs == 'usuario')
-                        <button onclick="agregarCarrito({{$product->id}})" class="btn btn-primary btn-goppBtn">Agregar</button>
+        <div class="list col-xs-12 col-sm-6 col-md-3 mx-auto d-block">
+            <div class="product-card">
+                @if($user->loggedAs == 'usuario')
+                <span class="favorite">
+                    @if($user->checkFaved($product->id))
+                    <button id="favorite" class="fav faved" onclick="addFavorite({{$product->id}})">
+                    @else
+                    <button id="favorite" class="fav" onclick="addFavorite({{$product->id}})">
                     @endif
-                </div>
+                        <span class="fas fa-star">
+                            <span class="fas fa-star"></span>
+                        </span>
+                    </button>
+                </span>
+                <span class="tag">
+                    <span onclick="agregarCarrito({{$product->id}})" class="fas fa-shopping-cart" aria-hidden="true"></span>
+                </span>
+                @endif
+                <a href="{{route($user->loggedAs.'.productos', ['id' => $product->id])}}">
+                    <h2>{{$product->nombre}}</h2>
+                    <h4>{{$product->descripcion}}</h4>
+                    <figure>
+                        <img src="{{$product->getProductImg()}}" alt="product" />
+                    </figure>
+                </a>
+                <span class="price">
+                    ${{$product->precio}} o <h5 class="text-white badge badge-usuario">{{$product->puntos}}</h5>
+                            <span class="far fa-circle text-dines"></span>
+                </span>
             </div>
         </div>
         @endforeach
@@ -135,6 +149,8 @@
     @if($user->loggedAs == 'usuario')
         <script src="{{asset('dist/js/sweetalert2.min.js')}}"></script>
         <script src="{{asset('dist/DataTables/js/jquery.dataTables.min.js')}}"></script>
+        @routes
         <script src="{{asset('dist/js/carrito.js')}}"></script>
+        <script src="{{asset('dist/js/favoritos.js')}}"></script>
     @endif
 @endsection

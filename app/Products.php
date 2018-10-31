@@ -21,8 +21,8 @@ class Products extends Model
     public function  getBusiness(){
         return Business::where('id',$this->business_id)->first();
     }
-    public function getPromoPrice(){
+    public function getPromo(){
         $product = Promos::where('product_id', $this->id)->first();
-        if($product != null) return $product->precio;
+        if($product != null) return $product;
     }
 }

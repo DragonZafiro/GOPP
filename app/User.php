@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Business;
+use App\FavoriteProducts;
 use Auth;
 class User extends Authenticatable
 {
@@ -45,5 +46,17 @@ class User extends Authenticatable
     public function getAfiliadorRepartidor(){
         return Afiliador::where('user_id', $this->id)
             ->where('repartidor_id', '<>', NULL)->get();
+    }
+    public function checkFaved($id){
+        if(FavoriteProducts::where('user_id', $this->id)
+            ->where('product_id', $id)->count() > 0)
+        return true;
+        else return false;
+    }
+    public function checkBusinessFaved($id){
+        if(FavoriteBusiness::where('user_id', $this->id)
+            ->where('business_id', $id)->count() > 0)
+        return true;
+        else return false;
     }
 }

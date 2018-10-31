@@ -46,7 +46,7 @@
 		<div class="page-header header-filter" style="background-image: url('{{ asset("dist/img/bg_login.jpg") }}'); background-size: cover; background-position: top center;">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4 col-md-4 ml-auto mr-auto">
+				<div class="col-lg-4 col-md-9 ml-auto mr-auto">
 					<div class="card card-login">
                     <form class="form" method="post" action="{{ route('login') }}">
 							<br>

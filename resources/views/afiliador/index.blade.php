@@ -14,6 +14,7 @@
             <h3>Actualmente tienes <span class="text-afiliador">{{$business->count()}}</span> Negocio(s) afiliados</h3>
         </div>
     </div>
+    @if($business->count() > 4)
     <div id="carousel-business" class="carousel slide" data-ride="carousel" data-interval="9000">
         <!-- Wrapper for slides -->
         <div class="carousel-inner principal_business row w-100 mx-auto" role="listbox">
@@ -54,6 +55,31 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+    @else
+    <div class="row w-100 mx-auto">
+        @foreach ($business as $negocio)
+        <div class="col-sm-6 col-md-3">
+            <div class="img-wrap">
+                <div class="roundElementContainer  text-center">
+                    <img src="{{$negocio->getBusiness()->getBusinessImg($negocio)}}" style="height:210px;width:90%">
+                </div>
+            </div>
+            <figcaption class="info-wrap">
+                <div class="col-lg-19 text-center">
+                    <h3>
+                        {{$negocio->getBusiness()->nombre}}
+                    </h3>
+                    <p>
+                        {{$negocio->getBusiness()->descripcion}}
+                    </p>
+                    <p><a class="btn btn-goppBtn btn-primary btn-m" href="{{route('afiliador.empresa', ['id' => $negocio->getBusiness()])}}"
+                            role="button">Ir a la página del negocio</a></p>
+                </div>
+            </figcaption>
+        </div>
+        @endforeach
+    </div>
+    @endif
 </div>
 @endsection
 @section('scripts')
