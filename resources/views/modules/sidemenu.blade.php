@@ -19,7 +19,7 @@
     @elseif($user->loggedAs == 'empresa')
         <a href="{{route('empresa.inicio')}}"><li><span class="fa fa-home"></span>Inicio</li></a>
         <a href="{{route('empresa.cuenta')}}"><li><span class="fa fa-user"></span>Mi Cuenta</li></a>
-        <a href="#"><li><span class="fas fa-user-friends"></span>Mis Seguidores</li></a>
+        <a href="{{route('empresa.seguidores')}}"><li><span class="fas fa-user-friends"></span>Mis Seguidores</li></a>
         <a href="{{route('empresa.LanzarBoletin')}}"><li><span class="fas fa-exclamation-circle"></span>Lanzar Boletín</li></a>
         <a href="{{route('praemie')}}"><li class="text-praemie"><span class="fa fa-rocket"></span>Praemie</li></a>
         <a href="{{route('about')}}"><li><span class="fa fa-eye"></span>Contácto...</li></a>

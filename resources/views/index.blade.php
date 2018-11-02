@@ -116,7 +116,7 @@
         @else
         <div class="row w-100 mx-auto">
             @foreach ($promos as $promo)
-            <div class="list col-xs-12 col-sm-6 col-md-3 mx-auto d-block">
+            <div class="list col-xs-10 col-sm-6 col-md-3 mx-auto d-block">
                 <div class="product-card">
                     <span class="oferta">
                         <p>${{$promo->precio}}</p>

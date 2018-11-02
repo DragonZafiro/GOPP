@@ -67,7 +67,7 @@ class UserSeeder extends Seeder
             'afiliador' => true,
         ]);
 
-        DB::table('users')->insert([
+        User::create([
             'name'=>'Repartidor',
             'last_name'=>'apellidos',
             'nick'=>'repartidor',
@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
             'repartidor' => true,
         ]);
 
-        DB::table('users')->insert([
+        User::create([
             'name'=>'Empresa',
             'last_name'=>'apellidos',
             'nick'=>'empresa',
@@ -103,7 +103,7 @@ class UserSeeder extends Seeder
             'empresa' => true,
         ]);
 
-        DB::table('users')->insert([
+        User::create([
             'name'=>'Otra Empresa',
             'last_name'=>'apellidos',
             'nick'=>'empresa2',
@@ -121,7 +121,7 @@ class UserSeeder extends Seeder
             'empresa' => true,
         ]);
 
-        DB::table('users')->insert([
+        User::create([
             'name'=>'Usuario Repartidor',
             'last_name'=>'apellidos',
             'nick'=>'repartidor2',

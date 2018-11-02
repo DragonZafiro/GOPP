@@ -53,7 +53,7 @@ class PromosSeeder extends Seeder
         ]);
         Promos::create([
             'product_id' => 4,
-            'business_id' => 2,
+            'business_id' => 7,
             'precio' => '199',
             'compraMinima' => '1',
             'encabezado' => 'Botas de remate!',
@@ -64,7 +64,7 @@ class PromosSeeder extends Seeder
         ]);
         Promos::create([
             'product_id' => 5,
-            'business_id' => 2,
+            'business_id' => 7,
             'precio' => '259',
             'compraMinima' => '1',
             'encabezado' => 'Botas café de oferta',
@@ -75,7 +75,7 @@ class PromosSeeder extends Seeder
         ]);
         Promos::create([
             'product_id' => 6,
-            'business_id' => 2,
+            'business_id' => 7,
             'precio' => '450',
             'compraMinima' => '1',
             'encabezado' => 'Oferta de temporada',
@@ -86,7 +86,7 @@ class PromosSeeder extends Seeder
         ]);
         Promos::create([
             'product_id' => 7,
-            'business_id' => 2,
+            'business_id' => 7,
             'precio' => '499',
             'compraMinima' => '1',
             'encabezado' => 'dadsfadsf',
@@ -97,7 +97,7 @@ class PromosSeeder extends Seeder
         ]);
         Promos::create([
             'product_id' => 8,
-            'business_id' => 2,
+            'business_id' => 7,
             'precio' => '799',
             'compraMinima' => '1',
             'encabezado' => 'Botas de promoción',
@@ -108,7 +108,7 @@ class PromosSeeder extends Seeder
         ]);
         Promos::create([
             'product_id' => 9,
-            'business_id' => 3,
+            'business_id' => 12,
             'precio' => '9999',
             'compraMinima' => '1',
             'encabezado' => 'Buen fin',

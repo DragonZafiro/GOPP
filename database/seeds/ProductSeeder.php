@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Products;
+use App\Business;
 
 class ProductSeeder extends Seeder
 {
@@ -33,7 +34,7 @@ class ProductSeeder extends Seeder
         Products::create([
             'tipo' => 'Producto',
             'nombre' => 'Hamburguesa Doble JR',
-            'business_id' => 1,
+            'business_id' => 2,
             'codigo' => '000523352',
             'descripcion' => 'Carne de res',
             'marca' => 'Mc Donalds',
@@ -70,7 +71,7 @@ class ProductSeeder extends Seeder
         Products::create([
             'tipo' => 'Producto',
             'nombre' => 'BOTA HIKER JEEP ',
-            'business_id' => 2,
+            'business_id' => 7,
             'codigo' => '0005251223',
             'descripcion' => 'Talla 27-29',
             'marca' => 'HIKER',
@@ -82,7 +83,7 @@ class ProductSeeder extends Seeder
         Products::create([
             'tipo' => 'Producto',
             'nombre' => 'BOTA HIKER TIMBERLAND ',
-            'business_id' => 2,
+            'business_id' => 7,
             'codigo' => '0005251223',
             'descripcion' => 'Talla 26-29',
             'marca' => 'HIKER',
@@ -94,7 +95,7 @@ class ProductSeeder extends Seeder
         Products::create([
             'tipo' => 'Producto',
             'nombre' => 'BOTA HEAVY MICHELIN GAEL ',
-            'business_id' => 2,
+            'business_id' => 7,
             'codigo' => '0005251223',
             'descripcion' => 'Talla 27-29',
             'marca' => 'GAEL',
@@ -106,7 +107,7 @@ class ProductSeeder extends Seeder
         Products::create([
             'tipo' => 'Producto',
             'nombre' => 'BOTA 3/4 HIKER LOCMAN ',
-            'business_id' => 2,
+            'business_id' => 7,
             'codigo' => '0005251223',
             'descripcion' => 'Talla 27-29',
             'marca' => 'HIKER',
@@ -118,7 +119,7 @@ class ProductSeeder extends Seeder
         Products::create([
             'tipo' => 'Producto',
             'nombre' => 'Pantalla LED Sony 55 Pulgadas 4K Smart 55X750F',
-            'business_id' => 3,
+            'business_id' => 12,
             'codigo' => '991231233',
             'descripcion' => 'La marca Sony trae para ti este asombroso Televisor modelo 55X750F, cuenta con una calidad de resolución Ultra HD con tecnología 4K X-Reality Pro',
             'marca' => 'HIKER',
@@ -129,7 +130,7 @@ class ProductSeeder extends Seeder
         Products::create([
             'tipo' => 'Producto',
             'nombre' => 'Reproductor DVD HKPRO HKD905 - Negro',
-            'business_id' => 3,
+            'business_id' => 12,
             'codigo' => '991231233',
             'descripcion' => 'DVD reproductor de alta calidad con elegante diseño delgado en color negro.',
             'marca' => 'HKPRO',
@@ -141,7 +142,7 @@ class ProductSeeder extends Seeder
         Products::create([
             'tipo' => 'Producto',
             'nombre' => 'Motocicleta Deportiva Italika RT 200 Rojo con Blanco',
-            'business_id' => 3,
+            'business_id' => 15,
             'codigo' => '991231233',
             'descripcion' => 'APROVECHA 12, 18 y HASTA 24 MESES SIN INTERESES en ITALIKA. ',
             'marca' => 'ITALIKA',
@@ -152,7 +153,7 @@ class ProductSeeder extends Seeder
         Products::create([
             'tipo' => 'Producto',
             'nombre' => 'Sony - Audífonos MDR-ZX110 - Negros',
-            'business_id' => 4,
+            'business_id' => 15,
             'codigo' => '991231233',
             'descripcion' => 'Los audífonos de Sony en forma de Diadema ZX110 cuenta con diafragmas tipo cúpula de 30 mm',
             'marca' => 'SONY',

@@ -113,14 +113,8 @@ class ProductController extends Controller
         ]);
 
         $product = Products::find($id);
-        if ($request->file('file')) {
-                $file = $request->file('file');
-                $file_name = $product->id . '_' . $product->codigo . '.' . $file->extension();
-                $file_path = 'dist/img/business/products/';
-                if (Storage::exists($file_path ,$file_name))
-                    Storage::delete($file_path , $file_name);
-                $file->move($file_path, $file_name);
-        }
+        $temp_codigo = $product->codigo;
+
         if($product->update([
                 'nombre' => $request['nombre'],
                 'codigo' => $request['codigo'],
@@ -132,7 +126,34 @@ class ProductController extends Controller
                 'stock' => $request['stock'],
                 'comentario' => $request['comentario']
         ]))
+        {
+            if ($request->file('file')) {
+                $file = $request->file('file');
+                $file_name = $product->id . '_' . $product->codigo . '.' . $file->extension();
+                $try_path = $product->id . '_' . $product->codigo . '.jpeg';
+                $try_path2 = $product->id . '_' . $product->codigo . '.png';
+                $file_path = 'dist/img/business/products/';
+                if (Storage::disk('public')->exists($try_path)) // Borra foto anterior
+                    Storage::disk('public')->delete($try_path);
+                if (Storage::disk('public')->exists($try_path2)) // Borra foto anterior
+                    Storage::disk('public')->delete($try_path2);
+                $file->move($file_path, $file_name);
+            }
+            else{
+                if ($temp_codigo != $product->codigo) {
+                    $file_path = 'dist/img/business/products/';
+                    $try_path = $product->id . '_' . $product->codigo . '.jpeg';
+                    $try_path2 = $product->id . '_' . $product->codigo . '.png';
+                    if (Storage::disk('public')->exists($try_path)) {
+                        Storage::disk('public')->move($try_path, $file_path.$try_path);
+                    }
+                    if (Storage::disk('public')->exists($try_path2)) {
+                        Storage::disk('public')->move($try_path2, $file_path.$try_path2);
+                    }
+                }
+            }
             return response()->json(['sucess' => true, 'message' => "ok"]);
+        }
         $errors = $validator->errors();
         return response()->json([
             'success' => false,
@@ -145,7 +166,7 @@ class ProductController extends Controller
         $product = Products::where('business_id', $id)->get();
         return Datatables::of($product)
             ->addColumn('action', function ($product) {
-                $buttons = '<a href="productos/'.$product->id.'" class="btn btn-sm btn-success text-white"><i class="fas fa-eye"></i></a>' .
+                $buttons = '<a href="producto/'.$product->id.'" class="btn btn-sm btn-success text-white"><i class="fas fa-eye"></i></a>' .
                     ' <a onclick="editForm(' . $product->id . ')" class="btn btn-sm btn-info text-white"><i class="fas fa-edit"></i></a>' .
                     ' <a onclick="deleteData(' . $product->id . ')" class="btn btn-sm btn-danger text-white"><i class="fas fa-times"></i></a>';
                 return $buttons;

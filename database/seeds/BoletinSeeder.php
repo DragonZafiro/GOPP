@@ -28,7 +28,7 @@ class BoletinSeeder extends Seeder
         ]);
 
         Boletin::create([
-            'business_id' => 2,
+            'business_id' => 7,
             'enlace' => 'http://www.priceshoes.com',
             'titulo' => 'Nuevas promociones FLEX',
             'contenido' => '¡Vuelve la moda más deseada!',
@@ -38,7 +38,7 @@ class BoletinSeeder extends Seeder
         ]);
 
         Boletin::create([
-            'business_id' => 3,
+            'business_id' => 6,
             'enlace' => 'http://www.elektra.com.mx/',
             'titulo' => 'Equipos HP',
             'contenido' => '¡Nuevas ofertas en todos nuestros equipos HP!',

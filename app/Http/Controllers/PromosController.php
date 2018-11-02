@@ -111,7 +111,7 @@ class PromosController extends Controller
         $promo = Promos::where('business_id', $id)->get();
         return Datatables::of($promo)
             ->addColumn('action', function ($promo) {
-                $buttons = '<a href="productos/' . $promo->getProduct()->id . '" class="btn btn-sm btn-success text-white"><i class="fas fa-eye"></i></a>' .
+                $buttons = '<a href="producto/' . $promo->getProduct()->id . '" class="btn btn-sm btn-success text-white"><i class="fas fa-eye"></i></a>' .
                     ' <a onclick="editForm(' . $promo->id . ')" class="btn btn-sm btn-info text-white"><i class="fas fa-edit"></i></a>' .
                     ' <a onclick="deleteData(' . $promo->id . ')" class="btn btn-sm btn-danger text-white"><i class="fas fa-times"></i></a>';
                 return $buttons;

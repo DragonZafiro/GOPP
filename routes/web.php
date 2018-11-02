@@ -38,8 +38,9 @@ Route::middleware(['session','usuario'])->group(function () {
     Route::get('/pedidos','UserController@MisPedidos')->name('usuario.pedidos');
     Route::get('/factura/usuario','UserController@factura')->name('usuario.factura');
     Route::get('/favor','UserController@favor')->name('usuario.favor');
-    Route::post('/favorito/{id}','UserController@favorito')->name('usuario.favorito');
-    Route::post('/favorito_empresa/{id}','UserController@favoritoEmpresa')->name('usuario.favorito_empresa');
+    Route::post('/guardados/{id}','UserController@favorito')->name('usuario.favorito');
+    Route::post('/guardados/empresa/{id}','UserController@favoritoEmpresa')->name('usuario.favorito_empresa');
+    Route::get('/guardados/empresa', function(){return redirect()->route('usuario.promos');});
     Route::get('/productos_carrito','CarritoController@AllProduct')->name('carrito.todos');
     Route::get('/carrito/{id}','CarritoController@agregar')->name('carrito.agregar');
     Route::get('/carrito/{id}/borrar','CarritoController@borrar')->name('carrito.borrar');
@@ -59,6 +60,7 @@ Route::middleware(['session','empresa'])->group(function () {
     Route::resource('/productos', 'ProductController');
     Route::resource('/ofertas', 'PromosController');
     Route::resource('/boletines', 'BoletinController');
+    Route::get('/seguidores', 'BusinessController@seguidores')->name('empresa.seguidores');
     Route::get('/mi_empresa','BusinessController@miempresa')->name('empresa.miempresa');
     Route::get('/producto/{id}','ProductController@show')->name('empresa.productos');
     Route::get('servicios_productos', 'ProductController@AllProduct')->name('productos.todos');

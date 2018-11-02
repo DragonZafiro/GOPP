@@ -1,8 +1,4 @@
-@media (min-width: 768px) and (max-width: 991.98px) {
-    .product-card {
-        width: 160px !important;
-    }
-}
+
 @media (min-width: 768px) {
     /* show 3 items */
     .card-oferta-container .carousel-inner .active,
@@ -136,7 +132,7 @@
     padding:10px;
 }
 .product-card {
-    width: 280px;
+    width:100%;
     display: inline-block;
     background-color: rgb(255, 245, 245);
     position: relative;

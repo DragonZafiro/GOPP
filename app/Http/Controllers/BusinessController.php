@@ -6,6 +6,7 @@ use App\Business;
 use App\CategoryModel;
 use App\Boletin;
 use App\Afiliador;
+use App\FavoriteBusiness;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -40,6 +41,11 @@ class BusinessController extends Controller
         return view('vistas.empresa',[
             'business' => Business::find($user->loggedAsBusiness),
             'user' => $user]);
+    }
+    public function seguidores(){
+        $users = FavoriteBusiness::where('business_id', auth()->user()->loggedAsBusiness)->get();
+        return view('empresa.seguidores', [
+            'users' => $users]);
     }
     public function notificaciones(){
         return view('vistas.notificaciones');
@@ -84,11 +90,11 @@ class BusinessController extends Controller
         ){
             if ($request->file('foto')) { // Modificar foto anterior
                 $file = $request->file('foto');
-                $file_name = $business->id . "_" .$business->user_id. "_".$business->user->nick.'.'. $file->extension();
+                $file_name = $business->id . "_" .$business->user_id.'.'. $file->extension();
                 $file_path = 'dist/img/business/profile/';
                 // Borrar foto anterior si existe
-                $try_path = 'dist/img/business/profile/'.$business->id . "_" .$business->user_id. "_".$business->user->nick.'.png';
-                $try_path2 = 'dist/img/business/profile/'.$business->id . "_" .$business->user_id. "_".$business->user->nick.'.jpeg';
+                $try_path = 'dist/img/business/profile/'.$business->id . "_" .$business->user_id.'.png';
+                $try_path2 = 'dist/img/business/profile/'.$business->id . "_" .$business->user_id.'.jpeg';
                 if (Storage::disk('public')->exists($try_path)) // Borra foto anterior
                     Storage::disk('public')->delete($try_path);
                 if (Storage::disk('public')->exists($try_path2)) // Borra foto anterior

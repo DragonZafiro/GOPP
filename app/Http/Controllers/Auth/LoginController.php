@@ -65,7 +65,7 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $field = $this->field($request);
-         $messages = ["{$this->username()}.exists" => 'The account you are trying to login is not registered or it has been disabled.'];
+         $messages = ["{$this->username()}.exists" => 'El usuario/e-mail no se encuentra registrado.'];
          $this->validate($request, [
             $this->username() => "required|exists:users,{$field}",
             'password' => 'required',

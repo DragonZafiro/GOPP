@@ -50,6 +50,7 @@
     </div>
 </nav>
 @endsection
+
 @section('contenido-padding')
 {{-- EMPRESAS TODAS--}}
 @if($s == null)
@@ -59,10 +60,9 @@
     else
         $categories = App\CategoryModel::find($category);
     ?>
-    @foreach ($categories as $categoria)
-    <?php $businesses = $categoria->getBusiness(); ?>
-    @if($businesses->first() != null)
-    <br>
+@foreach ($categories as $categoria)
+<?php $businesses = $categoria->getBusiness(); ?>
+@if($businesses->first() != null)
     <div class="card-oferta-container container-fluid">
         <div class="row col-lg-12">
             <div class="col-md-6">
@@ -71,17 +71,17 @@
                 <h5>{{$businesses->count()}} Negocio(s) disponibles.</h5>
             </div>
         </div>
-        @if($business->count() > 4)
+        @if($businesses->count() > 4)
         <div id="carousel-{{$categoria->id}}" class="carousel slide" data-ride="carousel" data-interval="9000">
             <!-- Wrapper for slides -->
             <div class="carousel-inner principal_{{$categoria->id}} row w-100 mx-auto" role="listbox">
                 <?php $i = 0; ?>
                 @foreach ($businesses as $buss)
                 @if($i != 1)
-                    <div class="carousel-item items_{{$categoria->id}} col-md-3 active">
+                    <div class="carousel-item items_{{$categoria->id}} col-xs-12 col-12 col-md-3 active">
                     <?php $i = 1;?>
                     @else
-                    <div class="carousel-item items_{{$categoria->id}} col-md-3">
+                    <div class="carousel-item items_{{$categoria->id}} col-xs-12 col-12 col-md-3">
                         @endif
                         <span class="favorite top-right">
                             @if(auth()->user()->checkBusinessFaved($buss->id))
@@ -96,7 +96,7 @@
                         </span>
                         <div class="img-wrap">
                             <div class="text-center">
-                                <img class="img-fluid rounded-circle" src="{{$buss->getBusinessImg()}}" >
+                                <img class="img-fluid rounded-circle" src="{{$buss->getBusinessImg()}}" style="height:210px;width:90%">
                             </div>
                         </div>
                         <figcaption class="info-wrap">
@@ -139,7 +139,7 @@
                 </span>
                 <div class="img-wrap">
                     <div class="text-center">
-                        <img class="img-fluid rounded-circle" src="{{$buss->getBusinessImg($buss)}}" >
+                        <img class="img-fluid rounded-circle" src="{{$buss->getBusinessImg($buss)}}" style="height:210px;width:90%">
                     </div>
                 </div>
                 <figcaption class="info-wrap">
@@ -222,9 +222,9 @@
         </a>
     </div>
     @else
-    <div class="row w-100 mx-auto">
+    <div class="row w-100 mx-auto" >
         @foreach ($business->get() as $negocio)
-        <div class="col-sm-6 col-md-3">
+        <div class="col-xs-12 col-12 col-md-3">
             <span class="favorite top-right">
                 <button id="favorite" class="fav" onclick="addBusinessFavorite({{$negocio->id}})">
                     <span class="fas fa-star">
@@ -234,7 +234,7 @@
             </span>
             <div class="img-wrap">
                 <div class="text-center">
-                    <img class="img-fluid rounded-circle" src="{{$negocio->getBusinessImg()}}">
+                    <img class="img-fluid rounded-circle" src="{{$negocio->getBusinessImg()}}" style="height:210px;width:90%">
                 </div>
             </div>
             <figcaption class="info-wrap">

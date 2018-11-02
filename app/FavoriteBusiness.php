@@ -14,4 +14,8 @@ class FavoriteBusiness extends Model
     public function getBusiness(){
         return Business::find($this->business_id);
     }
+
+    public function getUser(){
+        return User::find($this->user_id);
+    }
 }

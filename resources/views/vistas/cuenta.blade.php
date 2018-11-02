@@ -31,7 +31,7 @@
         @slot('section1')
             <div  class="roundElementContainer squareSizeL"><img src="{{$user->getUserImage()}}" alt=""></div>
             <h1 class="display-4 text-{{$user->loggedAs}}">Usuario</h1>
-            <div class=" col-sm-12 lead text-white">Nombre: {{$user->name}}</div>
+            <div class=" col-sm-12 lead text-white">Nombre: {{$user->name}} {{$user->last_name}}</div>
             <div class=" col-sm-12 lead text-white">Apodo: {{$user->nick}}</div>
             <div class=" col-sm-12 lead text-white">Correo electronico: {{$user->email}}</div>
             <div class=" col-sm-12 lead text-white">Eres:

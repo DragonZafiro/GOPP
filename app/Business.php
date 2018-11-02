@@ -27,7 +27,7 @@ class Business extends Model
 
     public function getBusinessImg(){
         $user = User::where('id', $this->user_id)->first();
-        $src = glob("dist/img/business/profile/" . $this->id . "_" .$this->user_id. "_".$user->nick.".*[jpg,png,jpeg]");
+        $src = glob("dist/img/business/profile/" . $this->id . "_" .$this->user_id.".*[jpg,png,jpeg]");
         if ($src == null) return asset("dist/img/user/profile/default.jpg");
         else
         return asset($src[0]);

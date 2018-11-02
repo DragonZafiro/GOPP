@@ -13,7 +13,7 @@
 @section('contenido')
 	<div class="container text-center">
 		<h5 class="txtXXL text-usuario">Guardados</h5>
-    	<h4> Esto es lo que has marcado como favorito, te facilitamos la vida, no lo busques tanto! </h4>
+    	<h4> Esto es lo que has marcado como favorito, te facilitamos la vida, ¡no lo busques tanto! </h4>
     </div>
 @endsection
 @section('contenido-padding')
